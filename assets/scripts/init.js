@@ -27,13 +27,6 @@ const questionList = [
 
 function submitAnswer(answerId) {
     questionList[currentQuestion].data[answerId] += 1;
-
-    if (currentQuestion < questionList.length - 1) {
-        currentQuestion += 1
-    } else {
-        displayConclusion()
-    }
-    console.log(currentQuestion)
     displayResults()
 }
 
@@ -65,7 +58,12 @@ function displayResults() {
     `
 
     document.getElementById(`next`).addEventListener('click', function() {
-        displayNextQuestion();
+        if (currentQuestion < questionList.length - 1) {
+            currentQuestion += 1
+            displayNextQuestion();
+        } else {
+            displayConclusion()
+        }
     });
 }
 
