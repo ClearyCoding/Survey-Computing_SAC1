@@ -30,12 +30,14 @@ function submitAnswer(answerId) {
 
     if (currentQuestion < questionList.length - 1) {
         currentQuestion += 1
+    } else {
+        displayConclusion()
     }
     console.log(currentQuestion)
     displayResults()
 }
 
-function nextQuestion() {
+function displayNextQuestion() {
     mainElement.innerHTML = `
     <h2>${questionList[currentQuestion].question}</h2>
     <button id="answer0">${questionList[currentQuestion].answers[0]}</button>
@@ -63,10 +65,16 @@ function displayResults() {
     `
 
     document.getElementById(`next`).addEventListener('click', function() {
-        nextQuestion();
+        displayNextQuestion();
     });
+}
+
+function displayConclusion() {
+    mainElement.innerHTML = `
+    <h2>Conclusion</h2>
+    `
 }
 
 const mainElement = document.querySelector('main');
 let currentQuestion = 0;
-nextQuestion()
+displayNextQuestion()
