@@ -3,30 +3,33 @@ const questionList = [
         question: 'What is the capital of France?',
         answers: ['Paris', 'London', 'Madrid', 'Rome'],
         correct: 0,
-        data: [122, 232, 532, 211]
     },
     {
         question: 'What is the capital of Spain?',
         answers: ['Paris', 'London', 'Madrid', 'Rome'],
         correct: 2,
-        data: [122, 211, 232, 532]
     },
     {
         question: 'What is the capital of Italy?',
         answers: ['Paris', 'London', 'Madrid', 'Rome'],
         correct: 3,
-        data: [122, 211, 232, 332]
     },
     {
         question: 'What is the capital of England?',
         answers: ['Paris', 'London', 'Madrid', 'Rome'],
         correct: 1,
-        data: [211, 232, 532, 122]
     }
 ]
 
+const answerData = [
+    [1, 1, 1, 1],
+    [1, 1, 1, 1],
+    [1, 1, 1, 1],
+    [1, 1, 1, 1],
+]
+
 function submitAnswer(answerId) {
-    questionList[currentQuestion].data[answerId] += 1;
+    answerData[currentQuestion][answerId] += 1;
     displayResults()
 }
 
@@ -48,14 +51,31 @@ function displayNextQuestion() {
 function displayResults() {
     mainElement.innerHTML = `
     <h2>${questionList[currentQuestion].question}</h2>
-    <h3>Results:</h3>
-    <h4>${questionList[currentQuestion].answers[0]} : ${questionList[currentQuestion].data[0]}</h4>
-    <h4>${questionList[currentQuestion].answers[1]} : ${questionList[currentQuestion].data[1]}</h4>
-    <h4>${questionList[currentQuestion].answers[2]} : ${questionList[currentQuestion].data[2]}</h4>
-    <h4>${questionList[currentQuestion].answers[3]} : ${questionList[currentQuestion].data[3]}</h4>
+    <canvas id="pie" style="width:100%;max-width:700px"></canvas>
     <button id="next">Next Question</button>
     
     `
+    new Chart("pie", {
+        type: "pie",
+        data: {
+            labels: questionList[currentQuestion].answers,
+            datasets: [{
+                backgroundColor: [
+                    "#00aba9",
+                    "#2b5797",
+                    "#e8c3b9",
+                    "#1e7145"
+                ],
+                data: answerData[currentQuestion]
+            }]
+        },
+        options: {
+            title: {
+                display: true,
+                text: "Results"
+            }
+        }
+    });
 
     document.getElementById(`next`).addEventListener('click', function() {
         if (currentQuestion < questionList.length - 1) {
