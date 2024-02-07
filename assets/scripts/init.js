@@ -35,7 +35,7 @@ function submitAnswer(answerId) {
 
 function displayNextQuestion() {
     mainElement.innerHTML = `
-    <h2>${questionList[currentQuestion].question}</h2>
+    <h2 class="question">${questionList[currentQuestion].question}</h2>
     <div class="question-answers">
         <button id="answer0">${questionList[currentQuestion].answers[0]}</button>
         <button id="answer1">${questionList[currentQuestion].answers[1]}</button>
@@ -45,7 +45,7 @@ function displayNextQuestion() {
     `
 
     for (let i = 0; i < 4; i++) {
-        document.getElementById(`answer${i}`).addEventListener('click', function() {
+        document.querySelector(`#answer${i}`).addEventListener('click', function() {
             submitAnswer(i);
         });
     }
@@ -63,13 +63,14 @@ function displayResults() {
             labels: questionList[currentQuestion].answers,
             datasets: [{
                 backgroundColor: [
-                    "#00aba9",
-                    "#2b5797",
-                    "#e8c3b9",
-                    "#1e7145"
+                    "#432e63",
+                    "#bda0d3",
+                    "#663399",
+                    "#c57dff"
                 ],
                 data: answerData[currentQuestion],
-                borderWidth: 0
+                borderColor: '#222526',
+                borderWidth: 8,
             }]
         },
         options: {
@@ -82,15 +83,15 @@ function displayResults() {
                 labels: {
                     fontColor: 'white',
                     fontSize: 18,
-                    font: 'Arial',
+                    font: 'Roboto',
                 }
             }
         }
     });
 
-    document.getElementById(`next`).addEventListener('click', function() {
+    document.querySelector(`#next`).addEventListener('click', function() {
         if (currentQuestion < questionList.length - 1) {
-            currentQuestion += 1
+            currentQuestion += 1;
             displayNextQuestion();
         } else {
             displayConclusion()
@@ -106,8 +107,13 @@ function displayConclusion() {
 }
 
 const mainElement = document.querySelector('main');
+const countElement = document.querySelector('#question-count');
 let currentQuestion = 0;
-document.getElementById(`start`).addEventListener('click', function() {
 
+setInterval(() => {
+    countElement.innerHTML = `${window.innerWidth < 450 ? 'Q.': 'Question '}${currentQuestion + 1} of ${questionList.length}`;
+}, 30)
+document.querySelector(`#start`).addEventListener('click', function() {
+    countElement.style.display = "block";
     displayNextQuestion();
 });

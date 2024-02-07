@@ -8,13 +8,14 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 2rem;
+    padding-top: 1rem;
 }
 main {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    padding-top: 2rem;
 
     position: absolute;
     inset: 0;
@@ -23,7 +24,7 @@ main {
 /* Font */
 
 h1, h2, h3, h4, h5, h6, p, div, button {
-    font-family: Arial, sans-serif;
+    font-family: Roboto, Arial, sans-serif;
     color: white;
 }
 h1, h2, h3, h4, h5, h6, p {
@@ -41,10 +42,25 @@ h2 {
 h3 {
     font-size: 2.25rem;
 }
+h5 {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+h6 {
+    font-size: 1rem;
+}
 p {
     font-size: 1.25rem;
     max-width: 80%;
     text-align: center;
+}
+@media (max-width: 550px) {
+    h5 {
+        font-size: 1rem;
+    }
+    h6 {
+        font-size: 0.7rem;
+    }
 }
 
 /* Custom Scrollbar */
@@ -67,17 +83,94 @@ p {
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
+.question {
+    padding: 0 5px;
+    margin-bottom: 30px;
+}
 button {
-    border: solid 2px white;
+    border: solid 3px white;
+    background-color: unset;
     font-size: 1.25rem;
+    border-radius: 7px;
 
     text-align: center;
-    padding: 20px 20px;
+    padding: 20px 45px;
     margin: 10px;
+
     cursor: pointer;
-    background-color: unset;
 }
 button:hover {
-    background-color: white;
-    color: #222526;
+    background: linear-gradient(to right, rebeccapurple, #4e3573, rebeccapurple);
+    border-color: #432e63;
+}
+#question-count {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 0 0 0 10px;
+
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 0.75rem;
+    background: linear-gradient(rebeccapurple, rebeccapurple, #432e63);
+    display: none;
+    z-index: 1;
+}
+#title-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 0 0 10px 0;
+
+    text-align: center;
+    padding: 0.75rem;
+    background: linear-gradient(rebeccapurple, rebeccapurple, #432e63);
+    text-decoration: none;
+    z-index: 1;
+}
+#github-card {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-radius: 0 10px 0 0;
+
+    text-align: center;
+    padding: 0.75rem;
+    background: linear-gradient(rebeccapurple, rebeccapurple, #432e63);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    z-index: 1;
+}
+#start, #next {
+    margin-top: 30px;
+}
+#github-card a {
+    cursor: pointer;
+    padding-left: 7px;
+    display: flex;
+    align-items: center;
+}
+.github-logo {
+    width: 1.5rem;
+}
+@media (max-width: 400px) {
+    #title-card {
+        border-radius: 0;
+        right: 0;
+    }
+    #question-count {
+        bottom: 0;
+        top: unset;
+        border-radius: 10px 0 0 0;
+    }
+    button {
+        padding: 20px 25px;
+    }
+    #github-card a {
+        padding: 0;
+    }
+    #github-card h6 {
+        display: none;
+    }
 }
