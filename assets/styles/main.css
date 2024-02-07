@@ -32,9 +32,11 @@ h1, h2, h3, h4, h5, h6, p {
 h1 {
     font-size: 6rem;
     font-weight: bold;
+    text-align: center;
 }
 h2 {
     font-size: 3rem;
+    text-align: center;
 }
 h3 {
     font-size: 2.25rem;
@@ -74,4 +76,8 @@ button {
     margin: 10px;
     cursor: pointer;
     background-color: unset;
+}
+button:hover {
+    background-color: white;
+    color: #222526;
 }

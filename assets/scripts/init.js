@@ -54,7 +54,7 @@ function displayResults() {
     mainElement.innerHTML = `
     <h2>${questionList[currentQuestion].question}</h2>
     <canvas id="pie" style="width:100%;max-width:700px"></canvas>
-    <button id="next">Next Question</button>
+    <button id="next">${currentQuestion < questionList.length - 1 ? 'Next Question' : 'Finish Survey'}</button>
     
     `
     new Chart("pie", {
