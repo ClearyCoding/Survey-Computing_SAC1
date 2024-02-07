@@ -113,7 +113,6 @@ button:hover {
     font-weight: bold;
     padding: 0.75rem;
     background: linear-gradient(rebeccapurple, rebeccapurple, #432e63);
-    display: none;
     z-index: 1;
 }
 #title-card {
@@ -132,11 +131,9 @@ button:hover {
     position: absolute;
     bottom: 0;
     left: 0;
-    border-radius: 0 10px 0 0;
 
     text-align: center;
     padding: 0.75rem;
-    background: linear-gradient(rebeccapurple, rebeccapurple, #432e63);
     text-decoration: none;
     display: flex;
     align-items: center;

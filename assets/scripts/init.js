@@ -104,16 +104,19 @@ function displayConclusion() {
     <h2>Conclusion</h2>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
     `
+    clearInterval(countTick)
+    countElement.innerHTML = `${questionList.length} Questions`;
 }
 
 const mainElement = document.querySelector('main');
 const countElement = document.querySelector('#question-count');
 let currentQuestion = 0;
+let countTick;
+countElement.innerHTML = `${questionList.length} Questions`;
 
-setInterval(() => {
-    countElement.innerHTML = `${window.innerWidth < 450 ? 'Q.': 'Question '}${currentQuestion + 1} of ${questionList.length}`;
-}, 30)
 document.querySelector(`#start`).addEventListener('click', function() {
-    countElement.style.display = "block";
     displayNextQuestion();
+    countTick = setInterval(() => {
+        countElement.innerHTML = `${window.innerWidth < 450 ? 'Q.': 'Question '}${currentQuestion + 1} of ${questionList.length}`;
+    }, 30);
 });
