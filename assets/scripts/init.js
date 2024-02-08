@@ -115,6 +115,57 @@ function displayConclusion() {
     clearInterval(countTick);
     countElement.innerHTML = `${questionList.length} Questions`;
 }
+function displayAnswers() {
+    let answersHTML = ``;
+    for (let i = 0; i < questionList.length; i++) {
+        answersHTML += `
+            <div>
+                <h3>Q${i + 1}: ${questionList[i].question}</h3>
+                <h4>${getCookie(`q${i}`) ? ` ${questionList[currentQuestion].answers[getCookie(`q${i}`)]}` : 'Not Answered'}</h4>
+            </div>
+        `
+    }
+
+    mainElement.innerHTML = `
+    <h2>Your Answers:</h2>
+    <div>
+        ${answersHTML}
+    </div>
+    <button id="back">Back</button>
+    `
+    document.querySelector('#back').addEventListener('click', function() {
+        if (complete()) {
+            displayConclusion()
+        } else {
+            displayStart()
+        }
+    });
+
+}
+function displayStart() {
+    if (complete()) {
+        mainElement.innerHTML = `
+    <h1>Title</h1>
+    <p>You have already completed this survey. To see the conclusion, press the "See Conclusion" button.</p>
+    <button id="start">See Conclusion</button>
+    `
+    } else {
+        mainElement.innerHTML = `
+    <h1>Title</h1>
+    <p>By clicking "Start Survey!", you agree to share your answers for this survey <strong>anonymously</strong> for use in this social study.</p>
+    <button id="start">Start Survey!</button>
+    `
+    }
+
+    document.querySelector('#start').addEventListener('click', function() {
+        countTick = setInterval(() => {
+            countElement.innerHTML = `${window.innerWidth < 450 ? 'Q': 'Question '}${currentQuestion + 1} of ${questionList.length}`;
+        }, 30);
+
+        displayNextQuestion();
+    });
+
+}
 function complete(start=0, mode=`boolean`) {
     for (let i = start; i <= questionList.length; i++) {
         if (i >= questionList.length ) {
@@ -143,6 +194,7 @@ function getCookie(name) {
     if (parts.length === 2) return parts.pop().split(';').shift();
 }
 
+
 let userUUID;
 if (document.cookie) {
     userUUID = getCookie('uuid')
@@ -151,31 +203,14 @@ if (document.cookie) {
     document.cookie = `uuid=${userUUID};`
 }
 
-
 const mainElement = document.querySelector('main');
 const countElement = document.querySelector('#question-count');
 let currentQuestion = 0;
 let countTick;
 countElement.innerHTML = `${questionList.length} Questions`;
 
-if (complete()) {
-    mainElement.innerHTML = `
-    <h1>Title</h1>
-    <p>You have already completed this survey. To see the conclusion, press the "See Conclusion" button.</p>
-    <button id="start">See Conclusion</button>
-    `
-} else {
-    mainElement.innerHTML = `
-    <h1>Title</h1>
-    <p>By clicking "Start Survey!", you agree to share your answers for this survey <strong>anonymously</strong> for use in this social study.</p>
-    <button id="start">Start Survey!</button>
-    `
-}
-
-document.querySelector('#start').addEventListener('click', function() {
-    countTick = setInterval(() => {
-        countElement.innerHTML = `${window.innerWidth < 450 ? 'Q': 'Question '}${currentQuestion + 1} of ${questionList.length}`;
-    }, 30);
-
-    displayNextQuestion();
+countElement.addEventListener('click', function() {
+    displayAnswers();
 });
+
+displayStart()

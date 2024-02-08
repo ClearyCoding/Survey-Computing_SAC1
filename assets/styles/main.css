@@ -38,9 +38,16 @@ h1 {
 h2 {
     font-size: 3rem;
     text-align: center;
+    margin-bottom: 25px;
 }
 h3 {
-    font-size: 2.25rem;
+    font-size: 1.5rem;
+    text-align: center;
+    margin-top: 5px;
+}
+h4 {
+    text-align: center;
+    color: darkgray;
 }
 h5 {
     font-size: 1.5rem;
@@ -119,6 +126,10 @@ button:hover {
     padding: 0.75rem;
     background: linear-gradient(rebeccapurple, rebeccapurple, #432e63);
     z-index: 1;
+    cursor: pointer;
+}
+#question-count:hover {
+    text-decoration: underline;
 }
 #title-card {
     position: absolute;
@@ -170,6 +181,9 @@ button:hover {
         width: 140px;
         font-size: 1rem;
     }
+    #start, #next, #back {
+        min-width: 140px;
+    }
     #github-card a {
         padding: 0;
     }
@@ -180,11 +194,15 @@ button:hover {
         button {
             width: 120px;
         }
+        #start, #next, #back {
+            min-width: 120px;
+        }
     }
 }
-#start, #next {
+#start, #next, #back {
     margin-top: 30px;
     width: unset;
     padding-right: 20px;
     padding-left: 20px;
+    min-width: 185px;
 }
