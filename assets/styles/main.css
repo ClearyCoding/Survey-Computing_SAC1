@@ -151,6 +151,9 @@ button:hover {
 .github-logo {
     width: 1.5rem;
 }
+#github-card a:hover .github-logo {
+    filter: brightness(70%);
+}
 @media (max-width: 400px) {
     #title-card {
         border-radius: 0;

@@ -2,22 +2,18 @@ const questionList = [
     {
         question: 'What is the capital of France?',
         answers: ['Paris', 'London', 'Madrid', 'Rome'],
-        correct: 0,
     },
     {
         question: 'What is the capital of Spain?',
         answers: ['Paris', 'London', 'Madrid', 'Rome'],
-        correct: 2,
     },
     {
         question: 'What is the capital of Italy?',
         answers: ['Paris', 'London', 'Madrid', 'Rome'],
-        correct: 3,
     },
     {
         question: 'What is the capital of England?',
         answers: ['Paris', 'London', 'Madrid', 'Rome'],
-        correct: 1,
     }
 ]
 
@@ -117,6 +113,6 @@ countElement.innerHTML = `${questionList.length} Questions`;
 document.querySelector(`#start`).addEventListener('click', function() {
     displayNextQuestion();
     countTick = setInterval(() => {
-        countElement.innerHTML = `${window.innerWidth < 450 ? 'Q.': 'Question '}${currentQuestion + 1} of ${questionList.length}`;
+        countElement.innerHTML = `${window.innerWidth < 450 ? 'Q': 'Question '}${currentQuestion + 1} of ${questionList.length}`;
     }, 30);
 });
