@@ -144,9 +144,6 @@ button:hover {
     align-items: center;
     z-index: 1;
 }
-#start, #next {
-    margin-top: 30px;
-}
 #github-card a {
     cursor: pointer;
     padding-left: 7px;
@@ -183,4 +180,10 @@ button:hover {
             width: 120px;
         }
     }
+}
+#start, #next {
+    margin-top: 30px;
+    width: unset;
+    padding-right: 20px;
+    padding-left: 20px;
 }
