@@ -55,6 +55,9 @@ p {
     text-align: center;
 }
 @media (max-width: 550px) {
+    h2 {
+        font-size: 1.5rem;
+    }
     h5 {
         font-size: 1rem;
     }
@@ -94,7 +97,9 @@ button {
     border-radius: 7px;
 
     text-align: center;
-    padding: 20px 45px;
+    box-sizing: border-box;
+    width: 185px;
+    padding: 20px 0;
     margin: 10px;
 
     cursor: pointer;
@@ -154,7 +159,7 @@ button:hover {
 #github-card a:hover .github-logo {
     filter: brightness(70%);
 }
-@media (max-width: 400px) {
+@media (max-width: 450px) {
     #title-card {
         border-radius: 0;
         right: 0;
@@ -165,12 +170,17 @@ button:hover {
         border-radius: 10px 0 0 0;
     }
     button {
-        padding: 20px 25px;
+        width: 140px;
     }
     #github-card a {
         padding: 0;
     }
     #github-card h6 {
         display: none;
+    }
+    @media (max-width: 350px) {
+        button {
+            width: 120px;
+        }
     }
 }

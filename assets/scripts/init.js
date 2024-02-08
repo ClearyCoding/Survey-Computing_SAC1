@@ -5,54 +5,61 @@ const questionList = [
     },
     {
         question: 'What is the capital of Spain?',
-        answers: ['Paris', 'London', 'Madrid', 'Rome'],
+        answers: ['Paris', 'London', 'Madrid', 'Rome', 'Narnia', 'N.B.E.T.S.I'],
     },
     {
         question: 'What is the capital of Italy?',
-        answers: ['Paris', 'London', 'Madrid', 'Rome'],
+        answers: ['London', 'Madrid', 'Rome'],
     },
     {
         question: 'What is the capital of England?',
         answers: ['Paris', 'London', 'Madrid', 'Rome'],
     }
 ]
-
 const answerData = [
     [1, 1, 1, 1],
-    [1, 1, 1, 1],
-    [1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1],
+    [1, 1, 1],
     [163, 324, 232, 123],
 ]
 
-function submitAnswer(answerId) {
-    answerData[currentQuestion][answerId] += 1;
-    displayResults()
-}
-
 function displayNextQuestion() {
+    let questionAnswers = ``;
+    let questionAnswersOdd = ``;
+    for (let i = 0; i < questionList[currentQuestion].answers.length; i++) {
+        if (questionList[currentQuestion].answers.length % 2 !== 0 && i === questionList[currentQuestion].answers.length - 1){
+            questionAnswersOdd = `
+            <button id="answer${i}">${questionList[currentQuestion].answers[i]}</button>
+        `
+        } else {
+            questionAnswers += `
+            <button id="answer${i}">${questionList[currentQuestion].answers[i]}</button>
+        `
+        }
+    }
     mainElement.innerHTML = `
     <h2 class="question">${questionList[currentQuestion].question}</h2>
     <div class="question-answers">
-        <button id="answer0">${questionList[currentQuestion].answers[0]}</button>
-        <button id="answer1">${questionList[currentQuestion].answers[1]}</button>
-        <button id="answer2">${questionList[currentQuestion].answers[2]}</button>
-        <button id="answer3">${questionList[currentQuestion].answers[3]}</button>
+        ${questionAnswers}
     </div>
+    ${questionAnswersOdd}
     `
 
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < questionList[currentQuestion].answers.length; i++) {
         document.querySelector(`#answer${i}`).addEventListener('click', function() {
-            submitAnswer(i);
+            answerData[currentQuestion][i] += 1;
+            displayResults();
         });
     }
 }
 function displayResults() {
+
     mainElement.innerHTML = `
-    <h2>${questionList[currentQuestion].question}</h2>
+    <h2 class="question">${questionList[currentQuestion].question}</h2>
     <canvas id="pie" style="width:100%;max-width:700px"></canvas>
     <button id="next">${currentQuestion < questionList.length - 1 ? 'Next Question' : 'Finish Survey'}</button>
-    
     `
+
     new Chart("pie", {
         type: "doughnut",
         data: {
@@ -62,7 +69,9 @@ function displayResults() {
                     "#432e63",
                     "#bda0d3",
                     "#663399",
-                    "#c57dff"
+                    "#c57dff",
+                    "#3c0f6b",
+                    "#6b38c0",
                 ],
                 data: answerData[currentQuestion],
                 borderColor: '#222526',
@@ -78,7 +87,7 @@ function displayResults() {
                 position: 'bottom',
                 labels: {
                     fontColor: 'white',
-                    fontSize: 18,
+                    fontSize: window.innerWidth < 400 ? 14 : 18,
                     font: 'Roboto',
                 }
             }
@@ -94,7 +103,6 @@ function displayResults() {
         }
     });
 }
-
 function displayConclusion() {
     mainElement.innerHTML = `
     <h2>Conclusion</h2>
@@ -103,6 +111,7 @@ function displayConclusion() {
     clearInterval(countTick)
     countElement.innerHTML = `${questionList.length} Questions`;
 }
+
 
 const mainElement = document.querySelector('main');
 const countElement = document.querySelector('#question-count');
