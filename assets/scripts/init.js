@@ -24,6 +24,16 @@ const answerData = [
 ]
 
 function displayNextQuestion() {
+    for (let i = 0; i <= questionList.length; i++) {
+        if (i >= questionList.length ) {
+            displayConclusion()
+            return;
+        } else if (getCookie(`q${i}`) === undefined) {
+            currentQuestion = i;
+            break;
+        }
+    }
+
     let questionAnswers = ``;
     let questionAnswersOdd = ``;
     for (let i = 0; i < questionList[currentQuestion].answers.length; i++) {
@@ -47,6 +57,7 @@ function displayNextQuestion() {
 
     for (let i = 0; i < questionList[currentQuestion].answers.length; i++) {
         document.querySelector(`#answer${i}`).addEventListener('click', function() {
+            document.cookie = `q${currentQuestion}=${i}`;
             answerData[currentQuestion][i] += 1;
             displayResults();
         });
@@ -95,21 +106,41 @@ function displayResults() {
     });
 
     document.querySelector(`#next`).addEventListener('click', function() {
-        if (currentQuestion < questionList.length - 1) {
-            currentQuestion += 1;
-            displayNextQuestion();
-        } else {
-            displayConclusion()
-        }
+        currentQuestion += 1;
+        displayNextQuestion();
     });
 }
 function displayConclusion() {
+    document.cookie = "complete=true"
+
     mainElement.innerHTML = `
     <h2>Conclusion</h2>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
     `
-    clearInterval(countTick)
+    clearInterval(countTick);
     countElement.innerHTML = `${questionList.length} Questions`;
+}
+
+function uuidv4() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
+        .replace(/[xy]/g, function (c) {
+            const r = Math.random() * 16 | 0,
+                v = c === 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+}
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
+let userUUID;
+if (document.cookie) {
+    userUUID = getCookie('uuid')
+} else {
+    userUUID = uuidv4();
+    document.cookie = `uuid=${userUUID};`
 }
 
 
@@ -119,9 +150,18 @@ let currentQuestion = 0;
 let countTick;
 countElement.innerHTML = `${questionList.length} Questions`;
 
-document.querySelector(`#start`).addEventListener('click', function() {
-    displayNextQuestion();
+if (getCookie('complete') !== undefined) {
+    mainElement.innerHTML = `
+    <h1>Title</h1>
+    <p>You have already completed this survey. To see the conclusion, press the "See Conclusion" button.</p>
+    <button id="start">See Conclusion</button>
+    `
+}
+
+document.querySelector('#start').addEventListener('click', function() {
     countTick = setInterval(() => {
         countElement.innerHTML = `${window.innerWidth < 450 ? 'Q': 'Question '}${currentQuestion + 1} of ${questionList.length}`;
     }, 30);
+
+    displayNextQuestion();
 });
