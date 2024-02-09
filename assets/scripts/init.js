@@ -25,11 +25,10 @@ const answerData = [
 
 function displayNextQuestion() {
     // Checks if there is another question to display, if not, end the survey
-    if (complete()) {
+    currentQuestion = isComplete(0, "i")
+    if (currentQuestion === true) {
         displayConclusion()
         return;
-    } else {
-        currentQuestion = complete(0, "i")
     }
 
     let questionAnswers = ``;
@@ -66,7 +65,7 @@ function displayResults() {
     mainElement.innerHTML = `
     <h2 class="question">${questionList[currentQuestion].question}</h2>
     <canvas id="pie" style="width:100%;max-width:700px"></canvas>
-    <button id="next">${complete() ? 'Finish Survey' : 'Next Question'}</button>
+    <button id="next">${isComplete() ? 'Finish Survey' : 'Next Question'}</button>
     `
 
     // Create the pie chart using chart.js
@@ -139,7 +138,7 @@ function displayAnswers() {
 
     // Create button to leave
     document.querySelector('#back').addEventListener('click', function() {
-        if (complete()) {
+        if (isComplete()) {
             displayConclusion()
         } else {
             displayStart()
@@ -148,7 +147,7 @@ function displayAnswers() {
 
 }
 function displayStart() {
-    if (complete()) {
+    if (isComplete()) {
         mainElement.innerHTML = `
     <h1>Title</h1>
     <p>You have already completed this survey. To see the conclusion, press the "See Conclusion" button.</p>
@@ -172,7 +171,7 @@ function displayStart() {
     });
 
 }
-function complete(start=0, mode=`boolean`) {
+function isComplete(start=0, mode=`boolean`) {
     for (let i = start; i <= questionList.length; i++) {
         if (i >= questionList.length ) {
             return true;
