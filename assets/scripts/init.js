@@ -147,16 +147,19 @@ function displayAnswers() {
 
 }
 function displayStart() {
+    const commonStartElements = `
+        <h1>Title</h1>
+    `
     if (isComplete()) {
         mainElement.innerHTML = `
-    <h1>Title</h1>
+    ${commonStartElements}
     <p>You have already completed this survey. To see the conclusion, press the "See Conclusion" button.</p>
     <button id="start">See Conclusion</button>
     `
     } else {
         mainElement.innerHTML = `
-    <h1>Title</h1>
-    <p>By clicking "Start Survey!", you agree to share your answers for this survey <strong>anonymously</strong> for use in this social study.</p>
+    ${commonStartElements}
+    <p>By clicking "Start Survey!", you agree to share your answers for this survey <strong>anonymously</strong> for use in this study. Participant data is stored in the form of UUIDs and cannot be traced back to any individual user.</p>
     <button id="start">Start Survey!</button>
     `
     }
