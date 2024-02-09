@@ -24,11 +24,11 @@ const answerData = [
 ]
 
 function displayNextQuestion() {
-    if (complete()) {
+    // Checks if there is another question to display, if not, end the survey
+    currentQuestion = isComplete(0, "i")
+    if (currentQuestion === true) {
         displayConclusion()
         return;
-    } else {
-        currentQuestion = complete(0, "i")
     }
 
     let questionAnswers = ``;
@@ -52,6 +52,7 @@ function displayNextQuestion() {
     ${questionAnswersOdd}
     `
 
+    // Sets up answer buttons to store and display results
     for (let i = 0; i < questionList[currentQuestion].answers.length; i++) {
         document.querySelector(`#answer${i}`).addEventListener('click', function() {
             document.cookie = `q${currentQuestion}=${i}`;
@@ -61,13 +62,13 @@ function displayNextQuestion() {
     }
 }
 function displayResults() {
-
     mainElement.innerHTML = `
     <h2 class="question">${questionList[currentQuestion].question}</h2>
     <canvas id="pie" style="width:100%;max-width:700px"></canvas>
-    <button id="next">${complete() ? 'Finish Survey' : 'Next Question'}</button>
+    <button id="next">${isComplete() ? 'Finish Survey' : 'Next Question'}</button>
     `
 
+    // Create the pie chart using chart.js
     new Chart("pie", {
         type: "doughnut",
         data: {
@@ -102,6 +103,7 @@ function displayResults() {
         }
     });
 
+    // Create button to continue to next question
     document.querySelector(`#next`).addEventListener('click', function() {
         currentQuestion += 1;
         displayNextQuestion();
@@ -133,8 +135,10 @@ function displayAnswers() {
     </div>
     <button id="back">Back</button>
     `
+
+    // Create button to leave
     document.querySelector('#back').addEventListener('click', function() {
-        if (complete()) {
+        if (isComplete()) {
             displayConclusion()
         } else {
             displayStart()
@@ -143,20 +147,24 @@ function displayAnswers() {
 
 }
 function displayStart() {
-    if (complete()) {
+    const commonStartElements = `
+        <h1>Title</h1>
+    `
+    if (isComplete()) {
         mainElement.innerHTML = `
-    <h1>Title</h1>
+    ${commonStartElements}
     <p>You have already completed this survey. To see the conclusion, press the "See Conclusion" button.</p>
     <button id="start">See Conclusion</button>
     `
     } else {
         mainElement.innerHTML = `
-    <h1>Title</h1>
-    <p>By clicking "Start Survey!", you agree to share your answers for this survey <strong>anonymously</strong> for use in this social study.</p>
+    ${commonStartElements}
+    <p>By clicking "Start Survey!", you agree to share your answers for this survey <strong>anonymously</strong> for use in this study. Participant data is stored in the form of UUIDs and cannot be traced back to any individual user. Data will be deleted after the study concludes</p>
     <button id="start">Start Survey!</button>
     `
     }
 
+    // Create a button to start the survey
     document.querySelector('#start').addEventListener('click', function() {
         countTick = setInterval(() => {
             countElement.innerHTML = `${window.innerWidth < 450 ? 'Q': 'Question '}${currentQuestion + 1} of ${questionList.length}`;
@@ -166,7 +174,7 @@ function displayStart() {
     });
 
 }
-function complete(start=0, mode=`boolean`) {
+function isComplete(start=0, mode=`boolean`) {
     for (let i = start; i <= questionList.length; i++) {
         if (i >= questionList.length ) {
             return true;
@@ -194,7 +202,7 @@ function getCookie(name) {
     if (parts.length === 2) return parts.pop().split(';').shift();
 }
 
-
+// Assign UUID to users without one
 let userUUID;
 if (document.cookie) {
     userUUID = getCookie('uuid')
@@ -203,14 +211,17 @@ if (document.cookie) {
     document.cookie = `uuid=${userUUID};`
 }
 
+// Initiate Common Variables
 const mainElement = document.querySelector('main');
 const countElement = document.querySelector('#question-count');
 let currentQuestion = 0;
 let countTick;
 countElement.innerHTML = `${questionList.length} Questions`;
 
+// Create button to see your current answers
 countElement.addEventListener('click', function() {
     displayAnswers();
 });
 
+// Display the welcome screen
 displayStart()

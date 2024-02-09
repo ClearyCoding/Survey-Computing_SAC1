@@ -185,6 +185,7 @@ button:hover {
         bottom: 0;
         top: unset;
         border-radius: 10px 0 0 0;
+        font-size: 1.2rem;
     }
     button {
         width: 140px;
