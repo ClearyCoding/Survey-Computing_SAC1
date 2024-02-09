@@ -1,4 +1,4 @@
- const questionList = [
+const questionList = [
     {
         question: 'What is the capital of France?',
         answers: ['Paris', 'London', 'Madrid', 'Rome'],
