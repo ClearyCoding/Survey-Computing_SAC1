@@ -1,0 +1,14 @@
+<!-- client.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Client</title>
+</head>
+<body>
+<script>
+  const ws = new WebSocket('ws://localhost:8080'); ws.onmessage = (event) =>{" "}
+  {console.log(event.data)}; ws.onopen = () => {ws.send("Hello, server!")};
+</script>
+</body>
+</html>
