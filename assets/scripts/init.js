@@ -229,24 +229,23 @@ function getCookie(name) {
     const parts = value.split(`; ${name}=`);
     if (parts.length === 2) return parts.pop().split(';').shift();
 }
-async function fetchData(command) {
-    var data = {query: command};
 
-    try {
-        var response = await fetch("http://58.109.204.207:8080/", {
-            method: "POST",
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json",
-                "Mode": "no-cors",
-                "Random-Value-No-Actual-Use": "haha-funny-number"
-            },
-            body: JSON.stringify(data)
-        });
+var data = { query: "SELECT * FROM testy" };
 
-        var responseData = await response.json();
-        return responseData;
-    } catch (error) {
-        console.error('There was a problem with the fetch operation: ', error);
-    }
+async function fetchData() {
+    var response = await fetch("http://192.168.1.24:8080", {
+        method:"POST",
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "Random-Value-No-Actual-Use": "haha-funny-number",
+            "Origin": "http://localhost:63342",
+        },
+        body: JSON.stringify(data)
+    });
+
+    var responseData = await response.json();
+    console.log(responseData);
 }
+
+fetchData();
