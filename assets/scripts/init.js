@@ -112,7 +112,7 @@ function displayResults() {
 function displayConclusion() {
     mainElement.innerHTML = `
     <h2>Conclusion</h2>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+    <p>Conclusion Coming Soon!</p>
     `
     clearInterval(countTick);
     countElement.innerHTML = `Your Answers`;
@@ -188,19 +188,7 @@ function isComplete(start=0, mode=`boolean`) {
     }
 }
 
-function UUIDv4() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
-        .replace(/[xy]/g, function (c) {
-            const r = Math.random() * 16 | 0,
-                v = c === 'x' ? r : (r & 0x3 | 0x8);
-            return v.toString(16);
-        });
-}
-function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-}
+console.log(fetchData("SELECT * FROM testy"));
 
 // Assign UUID to users without one
 let userUUID;
@@ -225,3 +213,40 @@ countElement.addEventListener('click', function() {
 
 // Display the welcome screen
 displayStart()
+
+
+// Utility Functions
+function UUIDv4() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
+        .replace(/[xy]/g, function (c) {
+            const r = Math.random() * 16 | 0,
+                v = c === 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+}
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+}
+async function fetchData(command) {
+    var data = {query: command};
+
+    try {
+        var response = await fetch("http://58.109.204.207:8080/", {
+            method: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Mode": "no-cors",
+                "Random-Value-No-Actual-Use": "haha-funny-number"
+            },
+            body: JSON.stringify(data)
+        });
+
+        var responseData = await response.json();
+        return responseData;
+    } catch (error) {
+        console.error('There was a problem with the fetch operation: ', error);
+    }
+}
