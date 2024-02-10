@@ -233,7 +233,7 @@ function getCookie(name) {
 var data = { query: "SELECT * FROM testy" };
 
 async function fetchData() {
-    var response = await fetch("http://192.168.1.24:8080", {
+    var response = await fetch("http://58.109.204.207:8080", {
         method:"POST",
         headers: {
             "Accept": "application/json",
