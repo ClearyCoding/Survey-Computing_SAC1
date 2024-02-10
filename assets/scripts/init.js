@@ -234,7 +234,7 @@ function getCookie(name) {
 async function fetchData(command) {
     const data = { query: command };
 
-    let response = await fetch("http://58.109.204.207:8080", {
+    let response = await fetch("https://58.109.204.207:8080", {
         method:"POST",
         headers: {
             "Accept": "application/json",
