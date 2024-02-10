@@ -112,7 +112,7 @@ function displayResults() {
 function displayConclusion() {
     mainElement.innerHTML = `
     <h2>Conclusion</h2>
-    <p>Conclusion Coming Soon!</p>
+    <p>Conclusion coming soon!</p>
     `
     clearInterval(countTick);
     countElement.innerHTML = `Your Answers`;
@@ -188,8 +188,6 @@ function isComplete(start=0, mode=`boolean`) {
     }
 }
 
-console.log(fetchData("SELECT * FROM testy"));
-
 // Assign UUID to users without one
 let userUUID;
 if (document.cookie) {
@@ -215,6 +213,7 @@ countElement.addEventListener('click', function() {
 displayStart()
 
 
+
 // Utility Functions
 function UUIDv4() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
@@ -230,10 +229,12 @@ function getCookie(name) {
     if (parts.length === 2) return parts.pop().split(';').shift();
 }
 
-var data = { query: "SELECT * FROM testy" };
 
-async function fetchData() {
-    var response = await fetch("http://58.109.204.207:8080", {
+
+async function fetchData(command) {
+    const data = { query: command };
+
+    let response = await fetch("http://58.109.204.207:8080", {
         method:"POST",
         headers: {
             "Accept": "application/json",
@@ -244,8 +245,8 @@ async function fetchData() {
         body: JSON.stringify(data)
     });
 
-    var responseData = await response.json();
+    const responseData = await response.json();
     console.log(responseData);
 }
 
-fetchData();
+console.log(fetchData("SELECT * FROM testy"))
