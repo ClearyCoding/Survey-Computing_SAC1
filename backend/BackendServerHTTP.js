@@ -2,10 +2,8 @@
 
 var mysql = require('mysql');
 var http = require('http');
-var bodyParser = require('body-parser');
 
 var queryresult
-var body
 
 var con = mysql.createConnection({
     host: "localhost",
