@@ -159,7 +159,7 @@ function displayStart() {
     } else {
         mainElement.innerHTML = `
     ${commonStartElements}
-    <p>By clicking "Start Survey!", you agree to share your answers for this survey <strong>anonymously</strong> for use in this study. Participant data is stored in the form of UUIDs and cannot be traced back to any individual user. Data will be deleted after the study concludes</p>
+    <p>By clicking "Start Survey!", you agree to share your answers for this survey <strong>anonymously</strong> for use in this study. Particpant data cannot be traced back to any individual user, and will be deleted after the study concludes.</p>
     <button id="start">Start Survey!</button>
     `
     }
