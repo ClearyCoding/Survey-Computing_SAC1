@@ -11,4 +11,5 @@ INSERT INTO <uuid> (q1, q2, q3, q4, q5) VALUES ('a', 'b', 'b', 'd', 'c'); //init
 
 SELECT * FROM <uuid>; //grab data from table
 
-UPDATE <uuid> SET q1 = 'a', q2 = 'b', q3 = 'c', q4 = 'd', q5 = 'e'; //update table
+UPDATE <uuid> SET q1 = 'a', q2 = 'b', q3 = 'c', q4 = 'd', q5 = 'e'; //update all table data
+UPDATE <uuid> SET q3 = 'c'; //update q3 data
