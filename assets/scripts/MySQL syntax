@@ -1,6 +1,9 @@
 CREATE TABLE <uuid> (q1 varchar(255), q2 varchar(255), q3 varchar(255), q4 varchar(255), q5 varchar(255));
     //create table with 5 columns; q1, q2, q3, q4, q5, all with 255 character strings as data types
 
+CREATE TABLE masterQ1 (a int, b int, c int, d int);
+    //create table with 4 columns; a, b, c, d, all with ints as data types. For master count of answers
+
 ALTER TABLE <uuid> ADD COLUMN q6 varchar(255); //add column (probably not needed)
 ALTER TABLE <uuid> DROP COLUMN q6 varchar(255); //delete column (probably not needed)
 
