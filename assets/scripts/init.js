@@ -198,18 +198,11 @@ if (document.cookie) {
     document.cookie = `uuid=${userUUID};`
 
     let answerDefinitions = ``;
-    //let answerNames = ``;
-    //let answerInits = ``;
     for (let i = 0; i < questionList.length; i++) {
         answerDefinitions += `q${i} int, `;
-        //answerNames += `q${i}, `
-        //answerInits += `-1, `
     }
     answerDefinitions = answerDefinitions.slice(0,-2);
-    //answerNames = answerNames.slice(0,-2);
-    //answerInits = answerInits.slice(0,-2);
     fetchData(`CREATE TABLE ${userUUID.replace(/-/g, "_")} (${answerDefinitions});`);
-    //fetchData(`INSERT INTO ${userUUID.replace(/-/g, "_")} (${answerNames}) VALUES (${answerInits});`)
 }
 
 // Initiate Common Variables
@@ -269,12 +262,13 @@ async function fetchData(command) {
         const responseData = await response.text();
 
         try {
-            const json = JSON.parse(responseData);
-            console.log(json);
+            return JSON.parse(responseData);
         } catch (e) {
             console.error('This does not look like valid JSON: ', responseData);
+            return null;
         }
     } catch (e) {
         console.error('Fetch failed: ', e);
+        return null;
     }
 }
