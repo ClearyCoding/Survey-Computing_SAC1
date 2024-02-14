@@ -1,26 +1,46 @@
 const questionList = [
     {
-        question: 'What is the capital of France?',
-        answers: ['Paris', 'London', 'Madrid', 'Rome'],
+        question: 'What year level are you in school?',
+        answers: ['9 or lower', '10', '11', '12', 'Finished School'],
     },
     {
-        question: 'What is the capital of Spain?',
-        answers: ['Paris', 'London', 'Madrid', 'Rome', 'Narnia', 'N.B.E.T.S.I'],
+        question: 'Were the government\'s restrictions appropriate?',
+        answers: ['Very Inappropriate', 'Somewhat Inappropriate', 'Neutral', 'Somewhat Appropriate', 'Very Appropriate'],
     },
     {
-        question: 'What is the capital of Italy?',
-        answers: ['London', 'Madrid', 'Rome'],
+        question: 'The restrictions applied were not strict enough.',
+        answers: ['Strongly Disagree', 'Somewhat Disagree', 'Neutral', 'Somewhat Agree', 'Strongly Agree'],
     },
     {
-        question: 'What is the capital of England?',
-        answers: ['Paris', 'London', 'Madrid', 'Rome'],
+        question: 'How often do you wear a mask when not required?',
+        answers: ['Never', 'Occasionally', 'Sometimes', 'Usually','Always'],
+    },
+    {
+        question: 'How many times have you been diagnosed with COVID-19?',
+        answers: ['Never', 'Once', 'Twice', 'Three Times', 'Four Times or More', 'Unsure'],
+    },
+    {
+        question: 'If you \'ve had COVID-19, how servere were your symptoms?',
+        answers: ['Not Applicable', 'Asymptomatic', 'Mild', 'Moderate', 'Servere', 'Life-Threatening'],
+    },
+    {
+        question: 'COVID-19 affected my performance in school/work.',
+        answers: ['Strongly Disagree', 'Somewhat Disagree', 'Neutral', 'Somewhat Agree', 'Strongly Agree'],
+    },
+    {
+        question: 'How did COVID-19 affect your mental health?',
+        answers: ['Significantly Worse', 'Slightly Worse', 'About The Same', 'Slightly Better', 'Significantly Better'],
     }
 ]
 const answerData = [
-    [1, 1, 1, 1],
+    [1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1],
     [1, 1, 1, 1, 1, 1],
-    [1, 1, 1],
-    [163, 324, 232, 123],
+    [1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1],
 ]
 
 function displayNextQuestion() {
@@ -34,16 +54,21 @@ function displayNextQuestion() {
     let questionAnswers = ``;
     let questionAnswersOdd = ``;
     for (let i = 0; i < questionList[currentQuestion].answers.length; i++) {
-        if (questionList[currentQuestion].answers.length % 2 !== 0 && i === questionList[currentQuestion].answers.length - 1){
-            questionAnswersOdd = `
+        questionAnswers += `
             <button id="answer${i}">${questionList[currentQuestion].answers[i]}</button>
         `
-        } else {
-            questionAnswers += `
-            <button id="answer${i}">${questionList[currentQuestion].answers[i]}</button>
-        `
-        }
     }
+
+    if ((questionList[currentQuestion].answers.length + 1) % 2 !== 0){
+        questionAnswersOdd = `
+            <button id="answer${questionList[currentQuestion].answers.length}">Prefer Not To Say</button>
+        `
+    } else {
+        questionAnswers += `
+            <button id="answer${questionList[currentQuestion].answers.length}">Prefer Not To Say</button>
+        `
+    }
+
     mainElement.innerHTML = `
     <h2 class="question">${questionList[currentQuestion].question}</h2>
     <div class="question-answers">
@@ -53,11 +78,13 @@ function displayNextQuestion() {
     `
 
     // Sets up answer buttons to store and display results
-    for (let i = 0; i < questionList[currentQuestion].answers.length; i++) {
+    for (let i = 0; i < questionList[currentQuestion].answers.length + 1; i++) {
         document.querySelector(`#answer${i}`).addEventListener('click', function() {
-            document.cookie = `q${currentQuestion}=${i}`;
-            fetchData(`UPDATE ${userUUID.replace(/-/g, "_")} SET q${currentQuestion} = '${i}';`)
-            answerData[currentQuestion][i] += 1;
+            if (i !== questionList[currentQuestion].answers.length) {
+                document.cookie = `q${currentQuestion}=${i}`;
+                fetchData(`UPDATE ${userUUID.replace(/-/g, "_")} SET q${currentQuestion} = '${i}';`)
+                answerData[currentQuestion][i] += 1;
+            }
             displayResults();
         });
     }
@@ -136,7 +163,8 @@ function displayAnswers() {
     </div>
     <button id="back">Back</button>
     `
-
+    let place = fetchData(`SELECT * FROM ${userUUID.replace(/-/g, "_")}`)
+    console.log(place)
     // Create button to leave
     document.querySelector('#back').addEventListener('click', function() {
         if (isComplete()) {
