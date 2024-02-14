@@ -81,10 +81,10 @@ function displayNextQuestion() {
     for (let i = 0; i < questionList[currentQuestion].answers.length + 1; i++) {
         document.querySelector(`#answer${i}`).addEventListener('click', function() {
             if (i !== questionList[currentQuestion].answers.length) {
-                document.cookie = `q${currentQuestion}=${i}`;
                 fetchData(`UPDATE ${userUUID.replace(/-/g, "_")} SET q${currentQuestion} = '${i}';`)
                 answerData[currentQuestion][i] += 1;
             }
+            document.cookie = `q${currentQuestion}=${i}`;
             displayResults();
         });
     }
