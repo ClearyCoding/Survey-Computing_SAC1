@@ -56,6 +56,7 @@ function displayNextQuestion() {
     for (let i = 0; i < questionList[currentQuestion].answers.length; i++) {
         document.querySelector(`#answer${i}`).addEventListener('click', function() {
             document.cookie = `q${currentQuestion}=${i}`;
+            fetchData(`UPDATE ${userUUID.replace(/-/g, "_")} SET q${currentQuestion} = '${i}';`)
             answerData[currentQuestion][i] += 1;
             displayResults();
         });
@@ -195,6 +196,20 @@ if (document.cookie) {
 } else {
     userUUID = UUIDv4();
     document.cookie = `uuid=${userUUID};`
+
+    let answerDefinitions = ``;
+    //let answerNames = ``;
+    //let answerInits = ``;
+    for (let i = 0; i < questionList.length; i++) {
+        answerDefinitions += `q${i} int, `;
+        //answerNames += `q${i}, `
+        //answerInits += `-1, `
+    }
+    answerDefinitions = answerDefinitions.slice(0,-2);
+    //answerNames = answerNames.slice(0,-2);
+    //answerInits = answerInits.slice(0,-2);
+    fetchData(`CREATE TABLE ${userUUID.replace(/-/g, "_")} (${answerDefinitions});`);
+    //fetchData(`INSERT INTO ${userUUID.replace(/-/g, "_")} (${answerNames}) VALUES (${answerInits});`)
 }
 
 // Initiate Common Variables
@@ -263,5 +278,3 @@ async function fetchData(command) {
         console.error('Fetch failed: ', e);
     }
 }
-
-console.log(fetchData("SELECT * FROM testy"))
