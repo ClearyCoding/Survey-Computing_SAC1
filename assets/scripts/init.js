@@ -1,46 +1,46 @@
 const questionList = [
     {
         question: 'What year level are you in school?',
-        answers: ['9 or lower', '10', '11', '12', 'Finished School'],
+        answers: ['9 or lower', '10', '11', '12', 'Finished School' , 'Prefer Not To Say'],
     },
     {
         question: 'Were the government\'s restrictions appropriate?',
-        answers: ['Very Inappropriate', 'Somewhat Inappropriate', 'Neutral', 'Somewhat Appropriate', 'Very Appropriate'],
+        answers: ['Very Inappropriate', 'Somewhat Inappropriate', 'Neutral', 'Somewhat Appropriate', 'Very Appropriate', 'Prefer Not To Say'],
     },
     {
         question: 'The restrictions applied were not strict enough.',
-        answers: ['Strongly Disagree', 'Somewhat Disagree', 'Neutral', 'Somewhat Agree', 'Strongly Agree'],
+        answers: ['Strongly Disagree', 'Somewhat Disagree', 'Neutral', 'Somewhat Agree', 'Strongly Agree', 'Prefer Not To Say'],
     },
     {
         question: 'How often do you wear a mask when not required?',
-        answers: ['Never', 'Occasionally', 'Sometimes', 'Usually','Always'],
+        answers: ['Never', 'Occasionally', 'Sometimes', 'Usually','Always', 'Prefer Not To Say'],
     },
     {
         question: 'How many times have you been diagnosed with COVID-19?',
-        answers: ['Never', 'Once', 'Twice', 'Three Times', 'Four Times or More', 'Unsure'],
+        answers: ['Never', 'Once', 'Twice', 'Three Times', 'Four Times or More', 'Unsure', 'Prefer Not To Say'],
     },
     {
         question: 'If you \'ve had COVID-19, how servere were your symptoms?',
-        answers: ['Not Applicable', 'Asymptomatic', 'Mild', 'Moderate', 'Servere', 'Life-Threatening'],
+        answers: ['Not Applicable', 'Asymptomatic', 'Mild', 'Moderate', 'Servere', 'Life-Threatening', 'Prefer Not To Say'],
     },
     {
         question: 'COVID-19 affected my performance in school/work.',
-        answers: ['Strongly Disagree', 'Somewhat Disagree', 'Neutral', 'Somewhat Agree', 'Strongly Agree'],
+        answers: ['Strongly Disagree', 'Somewhat Disagree', 'Neutral', 'Somewhat Agree', 'Strongly Agree', 'Prefer Not To Say'],
     },
     {
         question: 'How did COVID-19 affect your mental health?',
-        answers: ['Significantly Worse', 'Slightly Worse', 'About The Same', 'Slightly Better', 'Significantly Better'],
+        answers: ['Significantly Worse', 'Slightly Worse', 'About The Same', 'Slightly Better', 'Significantly Better', 'Prefer Not To Say'],
     }
 ]
 const answerData = [
-    [1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1],
     [1, 1, 1, 1, 1, 1],
     [1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1],
 ]
 
 function displayNextQuestion() {
@@ -54,21 +54,16 @@ function displayNextQuestion() {
     let questionAnswers = ``;
     let questionAnswersOdd = ``;
     for (let i = 0; i < questionList[currentQuestion].answers.length; i++) {
-        questionAnswers += `
+        if (questionList[currentQuestion].answers.length % 2 !== 0 && i === questionList[currentQuestion].answers.length - 1){
+            questionAnswersOdd = `
             <button id="answer${i}">${questionList[currentQuestion].answers[i]}</button>
         `
-    }
-
-    if ((questionList[currentQuestion].answers.length + 1) % 2 !== 0){
-        questionAnswersOdd = `
-            <button id="answer${questionList[currentQuestion].answers.length}">Prefer Not To Say</button>
+        } else {
+            questionAnswers += `
+            <button id="answer${i}">${questionList[currentQuestion].answers[i]}</button>
         `
-    } else {
-        questionAnswers += `
-            <button id="answer${questionList[currentQuestion].answers.length}">Prefer Not To Say</button>
-        `
+        }
     }
-
     mainElement.innerHTML = `
     <h2 class="question">${questionList[currentQuestion].question}</h2>
     <div class="question-answers">
@@ -78,13 +73,11 @@ function displayNextQuestion() {
     `
 
     // Sets up answer buttons to store and display results
-    for (let i = 0; i < questionList[currentQuestion].answers.length + 1; i++) {
+    for (let i = 0; i < questionList[currentQuestion].answers.length; i++) {
         document.querySelector(`#answer${i}`).addEventListener('click', function() {
-            if (i !== questionList[currentQuestion].answers.length) {
-                fetchData(`UPDATE ${userUUID.replace(/-/g, "_")} SET q${currentQuestion} = '${i}';`)
-                answerData[currentQuestion][i] += 1;
-            }
             document.cookie = `q${currentQuestion}=${i}`;
+            fetchData(`UPDATE ${userUUID.replace(/-/g, "_")} SET q${currentQuestion} = '${i}';`)
+            answerData[currentQuestion][i] += 1;
             displayResults();
         });
     }
