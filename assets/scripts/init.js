@@ -234,19 +234,34 @@ function getCookie(name) {
 async function fetchData(command) {
     const data = { query: command };
 
-    let response = await fetch("http://58.109.204.207:8080", { //leave as "http://" whichever knucklehead changed it please stop
-        method:"POST",
-        headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-            "Random-Value-No-Actual-Use": "haha-funny-number",
-            "Origin": "http://localhost:63342",
-        },
-        body: JSON.stringify(data)
-    });
+    try {
+        let response = await fetch("https://cors-anywhere.herokuapp.com/http://58.109.204.207:8080", {
+            method:"POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Random-Value-No-Actual-Use": "haha-funny-number",
+                "Origin": "http://localhost:63342",
+            },
+            body: JSON.stringify(data)
+        });
 
-    const responseData = await response.json();
-    console.log(responseData);
+        if (!response.ok) {
+            console.error(`HTTP error! status: ${response.status}`);
+            return;
+        }
+
+        const responseData = await response.text();
+
+        try {
+            const json = JSON.parse(responseData);
+            console.log(json);
+        } catch (e) {
+            console.error('This does not look like valid JSON: ', responseData);
+        }
+    } catch (e) {
+        console.error('Fetch failed: ', e);
+    }
 }
 
 console.log(fetchData("SELECT * FROM testy"))
