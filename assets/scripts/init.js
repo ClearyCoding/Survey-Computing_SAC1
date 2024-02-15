@@ -24,12 +24,12 @@ const questionList = [
         answers: ['Not Applicable', 'Asymptomatic', 'Mild', 'Moderate', 'Severe', 'Life-Threatening', 'Prefer Not To Say'],
     },
     {
-        question: 'How did COVID-19 impact your performance in school/work.',
-        answers: ['Significantly Worse', 'Slightly Worse', 'About The Same', 'Slightly Better', 'Significantly Better', 'Prefer Not To Say'],
+        question: 'COVID-19 lockdowns negatively impacted my performance in school/work.',
+        answers: ['Strongly Disagree', 'Somewhat Disagree', 'Neutral', 'Somewhat Agree', 'Strongly Agree', 'Prefer Not To Say'],
     },
     {
-        question: 'How did COVID-19 affect your mental health?',
-        answers: ['Significantly Worse', 'Slightly Worse', 'About The Same', 'Slightly Better', 'Significantly Better', 'Prefer Not To Say'],
+        question: 'COVID-19 negatively affected my mental health?',
+        answers: ['Strongly Disagree', 'Somewhat Disagree', 'Neutral', 'Somewhat Agree', 'Strongly Agree', 'Prefer Not To Say'],
     }
 ]
 const answerData = [
