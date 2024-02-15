@@ -24,7 +24,7 @@ const questionList = [
         answers: ['Not Applicable', 'Asymptomatic', 'Mild', 'Moderate', 'Severe', 'Life-Threatening', 'Prefer Not To Say'],
     },
     {
-        question: 'How did COVID-19 negatively impact your performance in school/work.',
+        question: 'How did COVID-19 impact your performance in school/work.',
         answers: ['Significantly Worse', 'Slightly Worse', 'About The Same', 'Slightly Better', 'Significantly Better', 'Prefer Not To Say'],
     },
     {
