@@ -17,14 +17,14 @@ const questionList = [
     },
     {
         question: 'How many times have you been diagnosed with COVID-19?',
-        answers: ['Never', 'Once', 'Twice', 'Three Times', 'Four Times or More', 'Unsure', 'Prefer Not To Say'],
+        answers: ['Never', 'Once', 'Twice', 'Thrice', 'Four Times or More', 'Unsure', 'Prefer Not To Say'],
     },
     {
-        question: 'If you \'ve had COVID-19, how servere were your symptoms?',
-        answers: ['Not Applicable', 'Asymptomatic', 'Mild', 'Moderate', 'Servere', 'Life-Threatening', 'Prefer Not To Say'],
+        question: 'If you\'ve had COVID-19, how severe were your symptoms?',
+        answers: ['Not Applicable', 'Asymptomatic', 'Mild', 'Moderate', 'Severe', 'Life-Threatening', 'Prefer Not To Say'],
     },
     {
-        question: 'COVID-19 affected my performance in school/work.',
+        question: 'How did COVID-19 negatively impact your performance in school/work.',
         answers: ['Strongly Disagree', 'Somewhat Disagree', 'Neutral', 'Somewhat Agree', 'Strongly Agree', 'Prefer Not To Say'],
     },
     {
@@ -226,6 +226,8 @@ if (document.cookie) {
     answerDefinitions = answerDefinitions.slice(0,-2);
     fetchData(`CREATE TABLE ${userUUID.replace(/-/g, "_")} (${answerDefinitions});`);
 }
+
+console.log(fetchData(`SELECT * FROM ${userUUID.replace(/-/g, "_")}`))
 
 // Initiate Common Variables
 const mainElement = document.querySelector('main');
