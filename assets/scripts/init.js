@@ -93,19 +93,20 @@ function displayResults() {
     new Chart("pie", {
         type: "doughnut",
         data: {
-            labels: questionList[currentQuestion].answers,
+            labels: questionList[currentQuestion].answers.slice(0, -1),
             datasets: [{
                 backgroundColor: [
-                    "#432e63",
-                    "#bda0d3",
-                    "#663399",
-                    "#c57dff",
-                    "#3c0f6b",
-                    "#6b38c0",
+                    "#3e41ff",
+                    "#33a9f1",
+                    "#035bbb",
+                    "#6fc1f1",
+                    "#5970ff",
+                    "#6caee5",
+                    "#7676ff",
                 ],
-                data: answerData[currentQuestion],
-                borderColor: '#222526',
-                borderWidth: 8,
+                data: answerData[currentQuestion].slice(0, -1),
+                borderColor: 'white',
+                borderWidth: 2,
             }]
         },
         options: {

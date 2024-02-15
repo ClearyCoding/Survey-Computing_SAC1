@@ -2,7 +2,23 @@
     scroll-behavior: smooth;
 }
 body {
-    background-color: #222526;
+    background: linear-gradient(to top right,
+    #3e41ff,
+    #38b1fc,
+    #035bbb,
+    #6fc1f1,
+    #3e41ff,
+    #219bfc,
+    #3e41ff,
+    #3e41ff,
+    #9fdcff) fixed;
+    background-size: 600% 600%;
+    animation: AnimationName 60s ease infinite;
+}
+@keyframes AnimationName {
+    0%{background-position: 0 50%}
+    50%{background-position: 100% 50%}
+    100%{background-position: 0 50%}
 }
 header {
     display: flex;
@@ -23,9 +39,12 @@ main {
 
 /* Font */
 
-h1, h2, h3, h4, h5, h6, p, div, button {
+h1, h2, h3, h4, p, div, button {
     font-family: Roboto, Arial, sans-serif;
     color: white;
+}
+h5, h6 {
+    font-family: Roboto, Arial, sans-serif;
 }
 h1, h2, h3, h4, h5, h6, p {
     margin: 0;
@@ -47,7 +66,7 @@ h3 {
 }
 h4 {
     text-align: center;
-    color: darkgray;
+    color: #e3e3e3;
 }
 h5 {
     font-size: 1.5rem;
@@ -88,13 +107,13 @@ p {
         width: 10px;
     }
     ::-webkit-scrollbar-track {
-        background: #111111;
+        background: #46c7ff;
     }
     ::-webkit-scrollbar-thumb {
-        background: #fbda03;
+        background: #ffffff;
     }
     ::-webkit-scrollbar-thumb:hover {
-        background: #f3ec78;
+        background: #e0e0e0;
     }
 }
 
@@ -121,8 +140,9 @@ button {
     cursor: pointer;
 }
 button:hover {
-    background: linear-gradient(to right, rebeccapurple, #4e3573, rebeccapurple);
-    border-color: #432e63;
+    background: #ffffff;
+    font-weight: bold;
+    color: #2379ad;
 }
 #question-count {
     position: absolute;
@@ -133,7 +153,8 @@ button:hover {
     font-size: 1.5rem;
     font-weight: bold;
     padding: 0.75rem;
-    background: linear-gradient(rebeccapurple, rebeccapurple, #432e63);
+    background: #ffffff;
+    color: #2379ad;
     z-index: 1;
     cursor: pointer;
 }
@@ -148,7 +169,8 @@ button:hover {
 
     text-align: center;
     padding: 0.75rem;
-    background: linear-gradient(rebeccapurple, rebeccapurple, #432e63);
+    background: #ffffff;
+    color: #2379ad;
     text-decoration: none;
     z-index: 1;
 }
