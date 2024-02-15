@@ -25,7 +25,7 @@ const questionList = [
     },
     {
         question: 'How did COVID-19 negatively impact your performance in school/work.',
-        answers: ['Strongly Disagree', 'Somewhat Disagree', 'Neutral', 'Somewhat Agree', 'Strongly Agree', 'Prefer Not To Say'],
+        answers: ['Significantly Worse', 'Slightly Worse', 'About The Same', 'Slightly Better', 'Significantly Better', 'Prefer Not To Say'],
     },
     {
         question: 'How did COVID-19 affect your mental health?',
