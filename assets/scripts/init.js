@@ -189,6 +189,7 @@ function displayStart() {
 
     // Create a button to start the survey
     document.querySelector('#start').addEventListener('click', function() {
+        clearInterval(countTick);
         countTick = setInterval(() => {
             countElement.innerHTML = `${window.innerWidth < 450 ? 'Q': 'Question '}${currentQuestion + 1} of ${questionList.length}`;
         }, 30);
