@@ -164,7 +164,11 @@ function displayAnswers() {
         if (isComplete()) {
             displayConclusion()
         } else {
+            if (isComplete(0, "i") === 0)
             displayStart()
+            else {
+                displayNextQuestion()
+            }
         }
     });
 
