@@ -198,6 +198,15 @@ button:hover {
 #github-card a:hover .github-logo {
     filter: brightness(70%);
 }
+.previous-answer {
+    cursor: pointer;
+}
+.previous-answer:hover h3 {
+    color: lightgrey;
+}
+.previous-answer:hover h4 {
+    color:  darkgrey;
+}
 @media (max-width: 450px) {
     #title-card {
         border-radius: 0;

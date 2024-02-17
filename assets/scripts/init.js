@@ -30,6 +30,10 @@ const questionList = [
     {
         question: 'COVID-19 negatively affected my mental health?',
         answers: ['Strongly Disagree', 'Somewhat Disagree', 'Neutral', 'Somewhat Agree', 'Strongly Agree', 'Prefer Not To Say'],
+    },
+    {
+        question: 'How many shots of the COVID-19 vaccination have you had?',
+        answers: ['None', 'One', 'Two', 'Three', 'Four Or More', 'Prefer Not To Say'],
     }
 ]
 const answerData = [
@@ -41,14 +45,19 @@ const answerData = [
     [1, 1, 1, 1, 1, 1, 1],
     [1, 1, 1, 1, 1, 1],
     [1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1],
 ]
 
-function displayNextQuestion() {
+function displayNextQuestion(question = null) {
     // Checks if there is another question to display, if not, end the survey
-    currentQuestion = isComplete(0, "i")
-    if (currentQuestion === true) {
-        displayConclusion()
-        return;
+    if (question === null) {
+        currentQuestion = isComplete(0, "i");
+        if (currentQuestion === true) {
+            displayConclusion();
+            return;
+        }
+    } else {
+        currentQuestion = question;
     }
 
     let questionAnswers = ``;
@@ -75,9 +84,12 @@ function displayNextQuestion() {
     // Sets up answer buttons to store and display results
     for (let i = 0; i < questionList[currentQuestion].answers.length; i++) {
         document.querySelector(`#answer${i}`).addEventListener('click', function() {
-            document.cookie = `q${currentQuestion}=${i}`;
             fetchData(`UPDATE ${userUUID.replace(/-/g, "_")} SET q${currentQuestion} = '${i}';`)
+            if (getCookie(`q${currentQuestion}`) !== undefined) {
+                answerData[currentQuestion][getCookie(`q${currentQuestion}`)] -= 1;
+            }
             answerData[currentQuestion][i] += 1;
+            document.cookie = `q${currentQuestion}=${i}`;
             displayResults();
         });
     }
@@ -143,7 +155,7 @@ function displayAnswers() {
     let answersHTML = ``;
     for (let i = 0; i < questionList.length; i++) {
         answersHTML += `
-            <div>
+            <div class="previous-answer" id="prevAnswer${i}">
                 <h3>Q${i + 1}: ${questionList[i].question}</h3>
                 <h4>${getCookie(`q${i}`) ? ` ${questionList[i].answers[getCookie(`q${i}`)]}` : 'Not Answered'}</h4>
             </div>
@@ -151,7 +163,7 @@ function displayAnswers() {
     }
 
     mainElement.innerHTML = `
-    <h2>Your Answers:</h2>
+    <h2>Edit Answers:</h2>
     <div>
         ${answersHTML}
     </div>
@@ -159,6 +171,18 @@ function displayAnswers() {
     `
     let place = fetchData(`SELECT * FROM ${userUUID.replace(/-/g, "_")}`)
     console.log(place)
+
+    //Create buttons to edit
+    for (let i = 0; i < questionList.length; i++) {
+        document.querySelector(`#prevAnswer${i}`).addEventListener('click', function() {
+            clearInterval(countTick);
+            countTick = setInterval(() => {
+                countElement.innerHTML = `${window.innerWidth < 450 ? 'Q': 'Question '}${currentQuestion + 1} of ${questionList.length}`;
+            }, 30);
+            displayNextQuestion(i)
+        });
+    }
+
     // Create button to leave
     document.querySelector('#back').addEventListener('click', function() {
         if (isComplete()) {
