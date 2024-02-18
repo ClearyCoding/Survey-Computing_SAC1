@@ -199,7 +199,7 @@ function displayAnswers() {
 }
 function displayStart() {
     const commonStartElements = `
-        <h1>Title</h1>
+        <h1>Attitudes To COVID-19</h1>
     `
     if (isComplete()) {
         mainElement.innerHTML = `
