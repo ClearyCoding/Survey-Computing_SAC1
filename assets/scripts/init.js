@@ -90,7 +90,12 @@ function displayNextQuestion(question = null) {
             }
             answerData[currentQuestion][i] += 1;
             document.cookie = `q${currentQuestion}=${i}`;
-            displayResults();
+
+            if (question === null) {
+                displayResults();
+            } else {
+                displayAnswers(currentQuestion);
+            }
         });
     }
 }
@@ -151,7 +156,10 @@ function displayConclusion() {
     clearInterval(countTick);
     countElement.innerHTML = `Your Answers`;
 }
-function displayAnswers() {
+function displayAnswers(question=null) {
+    clearInterval(countTick);
+    countElement.innerHTML = `Your Answers`;
+
     let prevButtonsHTML = ``;
     for (let i = 0; i < questionList.length; i++) {
         prevButtonsHTML += `
@@ -172,6 +180,27 @@ function displayAnswers() {
     </div>
     <button id="back">Back</button>
     `
+
+    if (question !== null) {
+        document.querySelector('#prevAnswersContainer').outerHTML = `
+            <div class="previous-answers-container" id="prevAnswersContainer">
+                <div id="prevAnswerEdit${question}" class="previous-answer-edit"></div>
+                <div class="previous-answer-title" id="prevAnswer${question}">
+                    <h3>Q${question + 1}: ${questionList[question].question}</h3>
+                    <h4>${getCookie(`q${question}`) ? ` ${questionList[question].answers[getCookie(`q${question}`)]}` : 'Not Answered'}</h4>
+                </div>
+            </div>
+            `
+
+        document.querySelector(`#prevAnswerEdit${question}`).addEventListener('click', function () {
+            clearInterval(countTick);
+            countTick = setInterval(() => {
+                countElement.innerHTML = `${window.innerWidth < 450 ? 'Q': 'Question '}${currentQuestion + 1} of ${questionList.length}`;
+            }, 30);
+            displayNextQuestion(question)
+        });
+    }
+
     for (let i = 0; i < questionList.length; i++) {
         document.querySelector(`#prevButton${i}`).addEventListener('click', function() {
             document.querySelector('#prevAnswersContainer').outerHTML = `
