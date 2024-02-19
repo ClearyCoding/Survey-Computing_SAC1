@@ -49,7 +49,7 @@ const answerData = [
 ]
 
 function displayNextQuestion(question = null) {
-    // Checks if there is another question to display, if not, end the survey
+        // Checks if there is another question to display, if not, end the survey
     if (question === null) {
         currentQuestion = isComplete(0, "i");
         if (currentQuestion === true) {
@@ -59,6 +59,11 @@ function displayNextQuestion(question = null) {
     } else {
         currentQuestion = question;
     }
+
+    clearInterval(countTick);
+    countTick = setInterval(() => {
+        countElement.innerHTML = `${window.innerWidth < 450 ? 'Q': 'Question '}${currentQuestion + 1} of ${questionList.length}`;
+    }, 30);
 
     let questionAnswers = ``;
     let questionAnswersOdd = ``;
@@ -257,11 +262,6 @@ function displayStart() {
 
     // Create a button to start the survey
     document.querySelector('#start').addEventListener('click', function() {
-        clearInterval(countTick);
-        countTick = setInterval(() => {
-            countElement.innerHTML = `${window.innerWidth < 450 ? 'Q': 'Question '}${currentQuestion + 1} of ${questionList.length}`;
-        }, 30);
-
         displayNextQuestion();
     });
 
