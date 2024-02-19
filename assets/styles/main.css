@@ -50,7 +50,7 @@ h1, h2, h3, h4, h5, h6, p {
     margin: 0;
 }
 h1 {
-    font-size: 6rem;
+    font-size: 4rem;
     font-weight: bold;
     text-align: center;
 }
@@ -82,7 +82,7 @@ p {
 }
 @media (max-width: 550px) {
     h1 {
-        font-size: 4rem;
+        font-size: 2.5rem;
     }
     h2 {
         font-size: 1.5rem;
@@ -144,6 +144,11 @@ button:hover {
     font-weight: bold;
     color: #2379ad;
 }
+.previous-question-button {
+    width: unset;
+    padding: 20px;
+    margin: 5px;
+}
 #question-count {
     position: absolute;
     top: 0;
@@ -198,14 +203,45 @@ button:hover {
 #github-card a:hover .github-logo {
     filter: brightness(70%);
 }
-.previous-answer {
+.previous-answers-container {
+    margin-bottom: 20px;
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    position: relative;
+}
+.previous-answer-edit {
+    border: solid 3px white;
+    border-right: none;
+    border-radius: 7px 0 0 7px;
     cursor: pointer;
+    width: 78px;
+    background-image: url('/assets/images/edit.png');
+    background-size: 100%;
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    background-position: center;
 }
-.previous-answer:hover h3 {
-    color: lightgrey;
+.previous-answer-edit:hover {
+    background-image: url('/assets/images/edit-hover.png');
+    background-color: white;
 }
-.previous-answer:hover h4 {
-    color:  darkgrey;
+.previous-answer-title {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border: solid 3px white;
+    border-radius: 0 7px 7px 0;
+}
+.previous-questions {
+    display: flex;
+    justify-content: center;
+}
+.previous-questions-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
 @media (max-width: 450px) {
     #title-card {
@@ -231,12 +267,24 @@ button:hover {
     #github-card h6 {
         display: none;
     }
+    .previous-question-button {
+        padding: 15px;
+    }
+    .previous-answers-container {
+        padding: 5px 0;
+    }
+    .previous-questions-grid {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
     @media (max-width: 350px) {
         button {
             width: 120px;
         }
         #start, #next, #back {
             min-width: 120px;
+        }
+        .previous-questions-grid {
+            grid-template-columns: 1fr 1fr 1fr;
         }
     }
 }

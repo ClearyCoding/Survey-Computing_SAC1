@@ -24,7 +24,7 @@ const questionList = [
         answers: ['Not Applicable', 'Asymptomatic', 'Mild', 'Moderate', 'Severe', 'Life-Threatening', 'Prefer Not To Say'],
     },
     {
-        question: 'COVID-19 lockdowns negatively impacted my performance in school/work.',
+        question: 'Lockdowns negatively impacted my performance in school/work.',
         answers: ['Strongly Disagree', 'Somewhat Disagree', 'Neutral', 'Somewhat Agree', 'Strongly Agree', 'Prefer Not To Say'],
     },
     {
@@ -152,34 +152,45 @@ function displayConclusion() {
     countElement.innerHTML = `Your Answers`;
 }
 function displayAnswers() {
-    let answersHTML = ``;
+    let prevButtonsHTML = ``;
     for (let i = 0; i < questionList.length; i++) {
-        answersHTML += `
-            <div class="previous-answer" id="prevAnswer${i}">
-                <h3>Q${i + 1}: ${questionList[i].question}</h3>
-                <h4>${getCookie(`q${i}`) ? ` ${questionList[i].answers[getCookie(`q${i}`)]}` : 'Not Answered'}</h4>
-            </div>
+        prevButtonsHTML += `
+            <button id="prevButton${i}" class="previous-question-button">Q${i + 1}</button>
         `
     }
 
     mainElement.innerHTML = `
     <h2>Edit Answers:</h2>
     <div>
-        ${answersHTML}
+        <div id="prevAnswersContainer">
+        </div>
+        <div class="previous-questions">
+            <div class="previous-questions-grid">
+                ${prevButtonsHTML}
+            </div>
+        </div>
     </div>
     <button id="back">Back</button>
     `
-    let place = fetchData(`SELECT * FROM ${userUUID.replace(/-/g, "_")}`)
-    console.log(place)
-
-    //Create buttons to edit
     for (let i = 0; i < questionList.length; i++) {
-        document.querySelector(`#prevAnswer${i}`).addEventListener('click', function() {
-            clearInterval(countTick);
-            countTick = setInterval(() => {
-                countElement.innerHTML = `${window.innerWidth < 450 ? 'Q': 'Question '}${currentQuestion + 1} of ${questionList.length}`;
-            }, 30);
-            displayNextQuestion(i)
+        document.querySelector(`#prevButton${i}`).addEventListener('click', function() {
+            document.querySelector('#prevAnswersContainer').outerHTML = `
+            <div class="previous-answers-container" id="prevAnswersContainer">
+                <div id="prevAnswerEdit${i}" class="previous-answer-edit"></div>
+                <div class="previous-answer-title" id="prevAnswer${i}">
+                    <h3>Q${i + 1}: ${questionList[i].question}</h3>
+                    <h4>${getCookie(`q${i}`) ? ` ${questionList[i].answers[getCookie(`q${i}`)]}` : 'Not Answered'}</h4>
+                </div>
+            </div>
+            `
+
+            document.querySelector(`#prevAnswerEdit${i}`).addEventListener('click', function () {
+                clearInterval(countTick);
+                countTick = setInterval(() => {
+                    countElement.innerHTML = `${window.innerWidth < 450 ? 'Q': 'Question '}${currentQuestion + 1} of ${questionList.length}`;
+                }, 30);
+                displayNextQuestion(i)
+            });
         });
     }
 
@@ -256,7 +267,10 @@ if (document.cookie) {
     fetchData(`CREATE TABLE ${userUUID.replace(/-/g, "_")} (${answerDefinitions});`);
 }
 
-console.log(fetchData(`SELECT * FROM ${userUUID.replace(/-/g, "_")}`))
+// TEST PLEASE DELETE ME WHEN BACKEND IS WORKING
+const command = `SELECT * FROM ${userUUID.replace(/-/g, "_")}`
+console.log(command)
+fetchData(command).then(data => console.log(data))
 
 // Initiate Common Variables
 const mainElement = document.querySelector('main');
@@ -296,7 +310,7 @@ async function fetchData(command) {
     const data = { query: command };
 
     try {
-        let response = await fetch("https://cors-anywhere.herokuapp.com/http://58.109.204.207:8080", {
+        let response = await fetch("https://58.109.204.207:8080", {
             method:"POST",
             headers: {
                 "Accept": "application/json",
