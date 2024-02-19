@@ -352,7 +352,7 @@ async function fetchData(command) {
     const data = { query: command };
 
     try {
-        let response = await fetch("https://58.109.204.207:8080", {
+        let response = await fetch("https://redesigned-dollop-q6p5grvrpvvf95q7-8080.app.github.dev/", {
             method:"POST",
             headers: {
                 "Accept": "application/json",
