@@ -34,7 +34,11 @@ const questionList = [
     {
         question: 'How many shots of the COVID-19 vaccination have you had?',
         answers: ['None', 'One', 'Two', 'Three', 'Four Or More', 'Prefer Not To Say'],
-    }
+    },
+    {
+        question: 'How has your access to healthcare services been impacted by the COVID-19 pandemic?',
+        answers: ['Major Impact', 'Decent Impact', 'Limited Impact', 'Minimal Impact','No Impact', 'Prefer Not To Say'],
+    },
 ]
 const answerData = [
     [1, 1, 1, 1, 1, 1],
@@ -43,6 +47,7 @@ const answerData = [
     [1, 1, 1, 1, 1, 1],
     [1, 1, 1, 1, 1, 1, 1],
     [1, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1],
     [1, 1, 1, 1, 1, 1],
     [1, 1, 1, 1, 1, 1],
     [1, 1, 1, 1, 1, 1],
