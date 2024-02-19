@@ -228,12 +228,27 @@ button:hover {
     background-image: url('/assets/images/edit-hover.png');
     background-color: white;
 }
+.previous-answer-results {
+    border: solid 3px white;
+    border-left: none;
+    border-radius: 0 7px 7px 0;
+    cursor: pointer;
+    width: 78px;
+    background-image: url('/assets/images/results.png');
+    background-size: 100%;
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.previous-answer-results:hover {
+    background-image: url('/assets/images/results-hover.png');
+    background-color: white;
+}
 .previous-answer-title {
     display: flex;
     flex-direction: column;
     padding: 10px;
     border: solid 3px white;
-    border-radius: 0 7px 7px 0;
 }
 .previous-questions {
     display: flex;

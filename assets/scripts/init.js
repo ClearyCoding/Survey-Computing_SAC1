@@ -104,11 +104,20 @@ function displayNextQuestion(question = null) {
         });
     }
 }
-function displayResults() {
+function displayResults(question=null) {
+    if (question !== null) {
+        currentQuestion = question;
+    }
+
+    clearInterval(countTick);
+    countTick = setInterval(() => {
+        countElement.innerHTML = `${window.innerWidth < 450 ? 'Q': 'Question '}${currentQuestion + 1} of ${questionList.length}`;
+    }, 30);
+
     mainElement.innerHTML = `
     <h2 class="question">${questionList[currentQuestion].question}</h2>
     <canvas id="pie" style="width:100%;max-width:700px"></canvas>
-    <button id="next">${isComplete() ? 'Finish Survey' : 'Next Question'}</button>
+    <button id="next">${question !== null ? 'Back' : isComplete() ? 'Finish Survey' : 'Next Question'}</button>
     `
 
     // Create the pie chart using chart.js
@@ -149,8 +158,12 @@ function displayResults() {
 
     // Create button to continue to next question
     document.querySelector(`#next`).addEventListener('click', function() {
-        currentQuestion += 1;
-        displayNextQuestion();
+        if (question !== null) {
+            displayAnswers(question);
+        } else {
+            currentQuestion += 1;
+            displayNextQuestion()
+        }
     });
 }
 function displayConclusion() {
@@ -194,15 +207,15 @@ function displayAnswers(question=null) {
                     <h3>Q${question + 1}: ${questionList[question].question}</h3>
                     <h4>${getCookie(`q${question}`) ? ` ${questionList[question].answers[getCookie(`q${question}`)]}` : 'Not Answered'}</h4>
                 </div>
+                <div id="prevAnswerResults${question}" class="previous-answer-results"></div>
             </div>
             `
 
         document.querySelector(`#prevAnswerEdit${question}`).addEventListener('click', function () {
-            clearInterval(countTick);
-            countTick = setInterval(() => {
-                countElement.innerHTML = `${window.innerWidth < 450 ? 'Q': 'Question '}${currentQuestion + 1} of ${questionList.length}`;
-            }, 30);
             displayNextQuestion(question)
+        });
+        document.querySelector(`#prevAnswerResults${question}`).addEventListener('click', function () {
+            displayResults(question)
         });
     }
 
@@ -215,15 +228,15 @@ function displayAnswers(question=null) {
                     <h3>Q${i + 1}: ${questionList[i].question}</h3>
                     <h4>${getCookie(`q${i}`) ? ` ${questionList[i].answers[getCookie(`q${i}`)]}` : 'Not Answered'}</h4>
                 </div>
+                <div id="prevAnswerResults${i}" class="previous-answer-results"></div>
             </div>
             `
 
             document.querySelector(`#prevAnswerEdit${i}`).addEventListener('click', function () {
-                clearInterval(countTick);
-                countTick = setInterval(() => {
-                    countElement.innerHTML = `${window.innerWidth < 450 ? 'Q': 'Question '}${currentQuestion + 1} of ${questionList.length}`;
-                }, 30);
                 displayNextQuestion(i)
+            });
+            document.querySelector(`#prevAnswerResults${i}`).addEventListener('click', function () {
+                displayResults(i)
             });
         });
     }
