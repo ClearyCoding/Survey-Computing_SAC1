@@ -333,7 +333,7 @@ countElement.addEventListener('click', function() {
     displayAnswers();
 });
 
-//I have placed "//ringring" at places i think are relevant
+//I have placed "//ringring" at places I think are relevant
 /*answerData = []
 let getAnswerData = await fetchData(`SELECT * FROM masterData`)
 for (let key in getAnswerData[0]) {
@@ -343,9 +343,9 @@ answerData = answerData.slice(0, -1)
 console.log(answerData)*/
 
 myAnswers = []
-let getmyAnswers = await fetchData(`SELECT * FROM ${userDataUUID}`)
-for (let key in getmyAnswers[0]) {
-    myAnswers.push(getmyAnswers[0][key])
+let getMyAnswers = await fetchData(`SELECT * FROM ${userDataUUID}`)
+for (let key in getMyAnswers[0]) {
+    myAnswers.push(getMyAnswers[0][key])
 }
 myAnswers = myAnswers.slice(0, -1)
 console.log(myAnswers)
