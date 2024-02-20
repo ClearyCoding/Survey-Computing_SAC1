@@ -52,6 +52,7 @@ const answerData = [
     [1, 1, 1, 1, 1, 1],
     [1, 1, 1, 1, 1, 1],
 ]
+let myAnswers = []
 
 function displayNextQuestion(question = null) {
         // Checks if there is another question to display, if not, end the survey
@@ -94,7 +95,7 @@ function displayNextQuestion(question = null) {
     // Sets up answer buttons to store and display results
     for (let i = 0; i < questionList[currentQuestion].answers.length; i++) {
         document.querySelector(`#answer${i}`).addEventListener('click', function() {
-            fetchData(`UPDATE ${userUUID.replace(/-/g, "_")} SET q${currentQuestion} = '${i}';`)
+            fetchData(`UPDATE ${userDataUUID} SET q${currentQuestion} = ${i} WHERE aligndata = 1;`)
             if (getCookie(`q${currentQuestion}`) !== undefined) {
                 answerData[currentQuestion][getCookie(`q${currentQuestion}`)] -= 1;
             }
@@ -300,24 +301,22 @@ function isComplete(start=0, mode=`boolean`) {
 
 // Assign UUID to users without one
 let userUUID;
+let userDataUUID;
 if (document.cookie) {
     userUUID = getCookie('uuid')
+    userDataUUID = userUUID.replace(/-/g, "_")
 } else {
     userUUID = UUIDv4();
     document.cookie = `uuid=${userUUID};`
+    userDataUUID = userUUID.replace(/-/g, "_")
 
     let answerDefinitions = ``;
     for (let i = 0; i < questionList.length; i++) {
         answerDefinitions += `q${i} int, `;
     }
-    answerDefinitions = answerDefinitions.slice(0,-2);
-    fetchData(`CREATE TABLE ${userUUID.replace(/-/g, "_")} (${answerDefinitions});`);
+    //answerDefinitions = answerDefinitions.slice(0,-2);
+    fetchData(`CREATE TABLE ${userDataUUID} (${answerDefinitions}aligndata int);`, userDataUUID)
 }
-
-// TEST PLEASE DELETE ME WHEN BACKEND IS WORKING
-const command = `SELECT * FROM ${userUUID.replace(/-/g, "_")}`
-console.log(command)
-fetchData(command).then(data => console.log(data))
 
 // Initiate Common Variables
 const mainElement = document.querySelector('main');
@@ -330,6 +329,8 @@ countElement.innerHTML = `${questionList.length} Questions`;
 countElement.addEventListener('click', function() {
     displayAnswers();
 });
+
+updateAnswers()
 
 // Display the welcome screen
 displayStart()
@@ -352,8 +353,15 @@ function getCookie(name) {
 }
 
 
-
-async function fetchData(command) {
+async function updateAnswers() {
+    myAnswers = []
+    let getVal = await fetchData(`SELECT * FROM ${userDataUUID}`)
+    for (let key in getVal[0]) {
+        myAnswers.push(getVal[0][key])
+    }
+    myAnswers = myAnswers.slice(0, -1)
+}
+async function fetchData(command, uuidInput=null) {
     const data = { query: command };
 
     try {
@@ -374,6 +382,10 @@ async function fetchData(command) {
         }
 
         const responseData = await response.text();
+
+        if (uuidInput !== null) {
+            fetchData(`INSERT INTO ${uuidInput} (aligndata) VALUES (1);`);
+        }
 
         try {
             return JSON.parse(responseData);
