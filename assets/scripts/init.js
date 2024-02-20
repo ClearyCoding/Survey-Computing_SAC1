@@ -290,6 +290,18 @@ function displayStart() {
     });
 
 }
+function displayLoader() {
+    mainElement.innerHTML = `
+        <div id="loader">
+            <div id="loader-wheel">
+                <img alt="Gang Show Logo" src="/favicon.png" id="loader-logo">
+            </div>
+            <div id="loader-title">Computing Sac 1</div>
+            <div id="loader-subtitle">Loading...</div>
+            <div id="loader-notice">This site relies on JavaScript, if you have JavaScript disabled, please enable to view the site.</div>
+        </div>
+    `
+}
 function isComplete(start=0, mode=`boolean`) {
     for (let i = start; i <= questionList.length; i++) {
         if (i >= questionList.length ) {
@@ -303,6 +315,16 @@ function isComplete(start=0, mode=`boolean`) {
         }
     }
 }
+
+// Initiate Common Variables
+const mainElement = document.querySelector('main');
+const countElement = document.querySelector('#question-count');
+let currentQuestion = 0;
+let countTick;
+countElement.innerHTML = `${questionList.length} Questions`;
+
+// Display Loading Screen
+displayLoader()
 
 // Assign UUID to users without one
 let userUUID;
@@ -322,13 +344,6 @@ if (document.cookie) {
     //answerDefinitions = answerDefinitions.slice(0,-2);
     await fetchData(`CREATE TABLE ${userDataUUID} (${answerDefinitions}aligndata int);`, userDataUUID)
 }
-
-// Initiate Common Variables
-const mainElement = document.querySelector('main');
-const countElement = document.querySelector('#question-count');
-let currentQuestion = 0;
-let countTick;
-countElement.innerHTML = `${questionList.length} Questions`;
 
 // Create button to see your current answers
 countElement.addEventListener('click', function() {
