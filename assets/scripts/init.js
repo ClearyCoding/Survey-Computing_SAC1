@@ -97,9 +97,11 @@ function displayNextQuestion(question = null) {
         document.querySelector(`#answer${i}`).addEventListener('click', function() {
             fetchData(`UPDATE ${userDataUUID} SET q${currentQuestion} = ${i} WHERE aligndata = 1;`)
             if (myAnswers[currentQuestion] !== null) {
-                answerData[currentQuestion][myAnswers[currentQuestion]] -= 1;  //ringring
+                answerData[currentQuestion][myAnswers[currentQuestion]] -= 1;
+                fetchData(`UPDATE masterData SET a${myAnswers[currentQuestion]}=${answerData[currentQuestion][myAnswers[currentQuestion]]} WHERE qNum = ${currentQuestion};`)
             }
-            answerData[currentQuestion][i] += 1; //ringring
+            answerData[currentQuestion][i] += 1;
+            fetchData(`UPDATE masterData SET a${i}=${answerData[currentQuestion][i]} WHERE qNum = ${currentQuestion};`)
             myAnswers[currentQuestion] = i
 
             if (question === null) {
@@ -126,7 +128,7 @@ function displayResults(question=null) {
     <button id="next">${question !== null ? 'Back' : isComplete() ? 'Finish Survey' : 'Next Question'}</button>
     `
 
-    // Create the pie chart using chart.js
+    // Create the pie chart using chart.js //ringring
     new Chart("pie", {
         type: "doughnut",
         data: {
@@ -334,13 +336,21 @@ countElement.addEventListener('click', function() {
 });
 
 //I have placed "//ringring" at places I think are relevant
-/*answerData = []
+answerData = []
 let getAnswerData = await fetchData(`SELECT * FROM masterData`)
-for (let key in getAnswerData[0]) {
-    answerData.push(getAnswerData[0][key])
+for (let i = 0; i <= questionList.length; i++) {
+    answerData.push([])
+    for (let key in getAnswerData[i]) {
+        if (getAnswerData[i][key] === null) {
+            answerData[i].push(0)
+        } else {
+            answerData[i].push(getAnswerData[i][key])
+        }
+    }
+    answerData[i] = answerData[i].slice(0, -1)
 }
 answerData = answerData.slice(0, -1)
-console.log(answerData)*/
+console.log(answerData)
 
 myAnswers = []
 let getMyAnswers = await fetchData(`SELECT * FROM ${userDataUUID}`)
