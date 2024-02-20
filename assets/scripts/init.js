@@ -57,12 +57,10 @@ let myAnswers = []
 function displayNextQuestion(question = null) {
     // Checks if there is another question to display, if not, end the survey
     if (question === null) {
-        let nextQuestion = isComplete(0, "i");
-        if (nextQuestion === true) {
+        currentQuestion = isComplete(0, "i");
+        if (currentQuestion === true) {
             displayConclusion();
             return;
-        } else {
-            currentQuestion = nextQuestion;
         }
     } else {
         currentQuestion = question;
@@ -260,7 +258,7 @@ function displayAnswers(question=null) {
             displayConclusion()
         } else {
             if (isComplete(0, "i") === 0)
-            displayStart()
+                displayStart()
             else {
                 displayNextQuestion()
             }
