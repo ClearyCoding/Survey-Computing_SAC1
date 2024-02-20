@@ -40,7 +40,7 @@ const questionList = [
         answers: ['Major Impact', 'Decent Impact', 'Limited Impact', 'Minimal Impact','No Impact', 'Prefer Not To Say'],
     },
 ]
-const answerData = [
+let answerData = [
     [1, 1, 1, 1, 1, 1],
     [1, 1, 1, 1, 1, 1],
     [1, 1, 1, 1, 1, 1],
@@ -98,11 +98,13 @@ function displayNextQuestion(question = null) {
     for (let i = 0; i < questionList[currentQuestion].answers.length; i++) {
         document.querySelector(`#answer${i}`).addEventListener('click', function() {
             fetchData(`UPDATE ${userDataUUID} SET q${currentQuestion} = ${i} WHERE aligndata = 1;`)
-            if (getCookie(`q${currentQuestion}`) !== undefined) {
-                answerData[currentQuestion][getCookie(`q${currentQuestion}`)] -= 1;
+            if (myAnswers[currentQuestion] !== null) {
+                answerData[currentQuestion][myAnswers[currentQuestion]] -= 1;
+                fetchData(`UPDATE masterData SET a${myAnswers[currentQuestion]}=${answerData[currentQuestion][myAnswers[currentQuestion]]} WHERE qNum = ${currentQuestion};`)
             }
             answerData[currentQuestion][i] += 1;
-            document.cookie = `q${currentQuestion}=${i}`;
+            fetchData(`UPDATE masterData SET a${i}=${answerData[currentQuestion][i]} WHERE qNum = ${currentQuestion};`)
+            myAnswers[currentQuestion] = i
 
             if (question === null) {
                 displayResults();
@@ -127,7 +129,7 @@ function displayResults(question=null) {
     <canvas id="pie" style="width:100%;max-width:700px"></canvas>
     <button id="next">${question !== null ? 'Back' : isComplete() ? 'Finish Survey' : 'Next Question'}</button>
     `
-
+    console.log(questionList[currentQuestion].answers.length)
     // Create the pie chart using chart.js
     new Chart("pie", {
         type: "doughnut",
@@ -143,7 +145,7 @@ function displayResults(question=null) {
                     "#6caee5",
                     "#7676ff",
                 ],
-                data: answerData[currentQuestion].slice(0, -1),
+                data: answerData[currentQuestion].slice(0, questionList[currentQuestion].answers.length - 1),
                 borderColor: 'white',
                 borderWidth: 2,
             }]
@@ -208,12 +210,15 @@ function displayAnswers(question=null) {
     `
 
     if (question !== null) {
+        console.log(question)
+        console.log(myAnswers)
+        console.log(myAnswers[question])
         document.querySelector('#prevAnswersContainer').outerHTML = `
             <div class="previous-answers-container" id="prevAnswersContainer">
                 <div id="prevAnswerEdit${question}" class="previous-answer-edit"></div>
                 <div class="previous-answer-title" id="prevAnswer${question}">
                     <h3>Q${question + 1}: ${questionList[question].question}</h3>
-                    <h4>${getCookie(`q${question}`) ? ` ${questionList[question].answers[getCookie(`q${question}`)]}` : 'Not Answered'}</h4>
+                    <h4>${myAnswers[question] !== null ? ` ${questionList[question].answers[myAnswers[question]]}` : 'Not Answered'}</h4>
                 </div>
                 <div id="prevAnswerResults${question}" class="previous-answer-results"></div>
             </div>
@@ -234,7 +239,7 @@ function displayAnswers(question=null) {
                 <div id="prevAnswerEdit${i}" class="previous-answer-edit"></div>
                 <div class="previous-answer-title" id="prevAnswer${i}">
                     <h3>Q${i + 1}: ${questionList[i].question}</h3>
-                    <h4>${getCookie(`q${i}`) ? ` ${questionList[i].answers[getCookie(`q${i}`)]}` : 'Not Answered'}</h4>
+                    <h4>${myAnswers[i] !== null ? ` ${questionList[i].answers[myAnswers[i]]}` : 'Not Answered'}</h4>
                 </div>
                 <div id="prevAnswerResults${i}" class="previous-answer-results"></div>
             </div>
@@ -287,11 +292,23 @@ function displayStart() {
     });
 
 }
+function displayLoader() {
+    mainElement.innerHTML = `
+        <div id="loader">
+            <div id="loader-wheel">
+                <img alt="Gang Show Logo" src="/favicon.png" id="loader-logo">
+            </div>
+            <div id="loader-title">Computing Sac 1</div>
+            <div id="loader-subtitle">Loading...</div>
+            <div id="loader-notice">This site relies on JavaScript, if you have JavaScript disabled, please enable to view the site.</div>
+        </div>
+    `
+}
 function isComplete(start=0, mode=`boolean`) {
     for (let i = start; i <= questionList.length; i++) {
         if (i >= questionList.length ) {
             return true;
-        } else if (getCookie(`q${i}`) === undefined) {
+        } else if (myAnswers[i] === null) {
             if (mode === `boolean`) {
                 return false;
             } else if (mode === 'i') {
@@ -300,6 +317,16 @@ function isComplete(start=0, mode=`boolean`) {
         }
     }
 }
+
+// Initiate Common Variables
+const mainElement = document.querySelector('main');
+const countElement = document.querySelector('#question-count');
+let currentQuestion = 0;
+let countTick;
+countElement.innerHTML = `${questionList.length} Questions`;
+
+// Display Loading Screen
+displayLoader()
 
 // Assign UUID to users without one
 let userUUID;
@@ -317,22 +344,38 @@ if (document.cookie) {
         answerDefinitions += `q${i} int, `;
     }
     //answerDefinitions = answerDefinitions.slice(0,-2);
-    fetchData(`CREATE TABLE ${userDataUUID} (${answerDefinitions}aligndata int);`, userDataUUID)
+    await fetchData(`CREATE TABLE ${userDataUUID} (${answerDefinitions}aligndata int);`, userDataUUID)
 }
-
-// Initiate Common Variables
-const mainElement = document.querySelector('main');
-const countElement = document.querySelector('#question-count');
-let currentQuestion = 0;
-let countTick;
-countElement.innerHTML = `${questionList.length} Questions`;
 
 // Create button to see your current answers
 countElement.addEventListener('click', function() {
     displayAnswers();
 });
 
-updateAnswers()
+// Setup Backend Variables
+answerData = []
+let getAnswerData = await fetchData(`SELECT * FROM masterData`)
+for (let i = 0; i <= questionList.length; i++) {
+    answerData.push([])
+    for (let key in getAnswerData[i]) {
+        if (getAnswerData[i][key] === null) {
+            answerData[i].push(0)
+        } else {
+            answerData[i].push(getAnswerData[i][key])
+        }
+    }
+    answerData[i] = answerData[i].slice(0, -1)
+}
+answerData = answerData.slice(0, -1)
+console.log(answerData)
+
+myAnswers = []
+let getMyAnswers = await fetchData(`SELECT * FROM ${userDataUUID}`)
+for (let key in getMyAnswers[0]) {
+    myAnswers.push(getMyAnswers[0][key])
+}
+myAnswers = myAnswers.slice(0, -1)
+console.log(myAnswers)
 
 // Display the welcome screen
 displayStart()
@@ -355,14 +398,6 @@ function getCookie(name) {
 }
 
 
-async function updateAnswers() {
-    myAnswers = []
-    let getVal = await fetchData(`SELECT * FROM ${userDataUUID}`)
-    for (let key in getVal[0]) {
-        myAnswers.push(getVal[0][key])
-    }
-    myAnswers = myAnswers.slice(0, -1)
-}
 async function fetchData(command, uuidInput=null) {
     const data = { query: command };
 
