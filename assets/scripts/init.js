@@ -96,11 +96,11 @@ function displayNextQuestion(question = null) {
     for (let i = 0; i < questionList[currentQuestion].answers.length; i++) {
         document.querySelector(`#answer${i}`).addEventListener('click', function() {
             fetchData(`UPDATE ${userDataUUID} SET q${currentQuestion} = ${i} WHERE aligndata = 1;`)
-            if (getCookie(`q${currentQuestion}`) !== undefined) {
-                answerData[currentQuestion][getCookie(`q${currentQuestion}`)] -= 1;
+            if (myAnswers[currentQuestion] !== null) {
+                answerData[currentQuestion][myAnswers[currentQuestion]] -= 1;  //ringring
             }
-            answerData[currentQuestion][i] += 1;
-            document.cookie = `q${currentQuestion}=${i}`;
+            answerData[currentQuestion][i] += 1; //ringring
+            myAnswers[currentQuestion] = i
 
             if (question === null) {
                 displayResults();
@@ -206,12 +206,15 @@ function displayAnswers(question=null) {
     `
 
     if (question !== null) {
+        console.log(question)
+        console.log(myAnswers)
+        console.log(myAnswers[question])
         document.querySelector('#prevAnswersContainer').outerHTML = `
             <div class="previous-answers-container" id="prevAnswersContainer">
                 <div id="prevAnswerEdit${question}" class="previous-answer-edit"></div>
                 <div class="previous-answer-title" id="prevAnswer${question}">
                     <h3>Q${question + 1}: ${questionList[question].question}</h3>
-                    <h4>${getCookie(`q${question}`) ? ` ${questionList[question].answers[getCookie(`q${question}`)]}` : 'Not Answered'}</h4>
+                    <h4>${myAnswers[question] !== null ? ` ${questionList[question].answers[myAnswers[question]]}` : 'Not Answered'}</h4>
                 </div>
                 <div id="prevAnswerResults${question}" class="previous-answer-results"></div>
             </div>
@@ -232,7 +235,7 @@ function displayAnswers(question=null) {
                 <div id="prevAnswerEdit${i}" class="previous-answer-edit"></div>
                 <div class="previous-answer-title" id="prevAnswer${i}">
                     <h3>Q${i + 1}: ${questionList[i].question}</h3>
-                    <h4>${getCookie(`q${i}`) ? ` ${questionList[i].answers[getCookie(`q${i}`)]}` : 'Not Answered'}</h4>
+                    <h4>${myAnswers[i] !== null ? ` ${questionList[i].answers[myAnswers[i]]}` : 'Not Answered'}</h4>
                 </div>
                 <div id="prevAnswerResults${i}" class="previous-answer-results"></div>
             </div>
@@ -289,7 +292,7 @@ function isComplete(start=0, mode=`boolean`) {
     for (let i = start; i <= questionList.length; i++) {
         if (i >= questionList.length ) {
             return true;
-        } else if (getCookie(`q${i}`) === undefined) {
+        } else if (myAnswers[i] === null) {
             if (mode === `boolean`) {
                 return false;
             } else if (mode === 'i') {
@@ -330,14 +333,14 @@ countElement.addEventListener('click', function() {
     displayAnswers();
 });
 
-
+//I have placed "//ringring" at places i think are relevant
 /*answerData = []
 let getAnswerData = await fetchData(`SELECT * FROM masterData`)
 for (let key in getAnswerData[0]) {
     answerData.push(getAnswerData[0][key])
 }
 answerData = answerData.slice(0, -1)
-console.log(answerData)
+console.log(answerData)*/
 
 myAnswers = []
 let getmyAnswers = await fetchData(`SELECT * FROM ${userDataUUID}`)
@@ -345,7 +348,7 @@ for (let key in getmyAnswers[0]) {
     myAnswers.push(getmyAnswers[0][key])
 }
 myAnswers = myAnswers.slice(0, -1)
-console.log(myAnswers)*/
+console.log(myAnswers)
 
 // Display the welcome screen
 displayStart()
