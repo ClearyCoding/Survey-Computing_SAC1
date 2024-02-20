@@ -55,12 +55,14 @@ const answerData = [
 let myAnswers = []
 
 function displayNextQuestion(question = null) {
-        // Checks if there is another question to display, if not, end the survey
+    // Checks if there is another question to display, if not, end the survey
     if (question === null) {
-        currentQuestion = isComplete(0, "i");
-        if (currentQuestion === true) {
+        let nextQuestion = isComplete(0, "i");
+        if (nextQuestion === true) {
             displayConclusion();
             return;
+        } else {
+            currentQuestion = nextQuestion;
         }
     } else {
         currentQuestion = question;
