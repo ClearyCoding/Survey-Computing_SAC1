@@ -40,7 +40,7 @@ const questionList = [
         answers: ['Major Impact', 'Decent Impact', 'Limited Impact', 'Minimal Impact','No Impact', 'Prefer Not To Say'],
     },
 ]
-const answerData = [
+let answerData = [
     [1, 1, 1, 1, 1, 1],
     [1, 1, 1, 1, 1, 1],
     [1, 1, 1, 1, 1, 1],
@@ -330,7 +330,22 @@ countElement.addEventListener('click', function() {
     displayAnswers();
 });
 
-updateAnswers()
+
+/*answerData = []
+let getAnswerData = await fetchData(`SELECT * FROM masterData`)
+for (let key in getAnswerData[0]) {
+    answerData.push(getAnswerData[0][key])
+}
+answerData = answerData.slice(0, -1)
+console.log(answerData)
+
+myAnswers = []
+let getmyAnswers = await fetchData(`SELECT * FROM ${userDataUUID}`)
+for (let key in getmyAnswers[0]) {
+    myAnswers.push(getmyAnswers[0][key])
+}
+myAnswers = myAnswers.slice(0, -1)
+console.log(myAnswers)*/
 
 // Display the welcome screen
 displayStart()
@@ -353,14 +368,6 @@ function getCookie(name) {
 }
 
 
-async function updateAnswers() {
-    myAnswers = []
-    let getVal = await fetchData(`SELECT * FROM ${userDataUUID}`)
-    for (let key in getVal[0]) {
-        myAnswers.push(getVal[0][key])
-    }
-    myAnswers = myAnswers.slice(0, -1)
-}
 async function fetchData(command, uuidInput=null) {
     const data = { query: command };
 
