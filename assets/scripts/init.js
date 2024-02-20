@@ -128,7 +128,7 @@ function displayResults(question=null) {
     <button id="next">${question !== null ? 'Back' : isComplete() ? 'Finish Survey' : 'Next Question'}</button>
     `
 
-    // Create the pie chart using chart.js //ringring
+    // Create the pie chart using chart.js
     new Chart("pie", {
         type: "doughnut",
         data: {
@@ -320,7 +320,7 @@ if (document.cookie) {
         answerDefinitions += `q${i} int, `;
     }
     //answerDefinitions = answerDefinitions.slice(0,-2);
-    fetchData(`CREATE TABLE ${userDataUUID} (${answerDefinitions}aligndata int);`, userDataUUID)
+    await fetchData(`CREATE TABLE ${userDataUUID} (${answerDefinitions}aligndata int);`, userDataUUID)
 }
 
 // Initiate Common Variables
@@ -335,7 +335,7 @@ countElement.addEventListener('click', function() {
     displayAnswers();
 });
 
-//I have placed "//ringring" at places I think are relevant
+// Setup Backend Variables
 answerData = []
 let getAnswerData = await fetchData(`SELECT * FROM masterData`)
 for (let i = 0; i <= questionList.length; i++) {
