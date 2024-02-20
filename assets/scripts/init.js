@@ -127,7 +127,7 @@ function displayResults(question=null) {
     <canvas id="pie" style="width:100%;max-width:700px"></canvas>
     <button id="next">${question !== null ? 'Back' : isComplete() ? 'Finish Survey' : 'Next Question'}</button>
     `
-
+    console.log(questionList[currentQuestion].answers.length)
     // Create the pie chart using chart.js
     new Chart("pie", {
         type: "doughnut",
@@ -143,7 +143,7 @@ function displayResults(question=null) {
                     "#6caee5",
                     "#7676ff",
                 ],
-                data: answerData[currentQuestion].slice(0, -1),
+                data: answerData[currentQuestion].slice(0, questionList[currentQuestion].answers.length - 1),
                 borderColor: 'white',
                 borderWidth: 2,
             }]
