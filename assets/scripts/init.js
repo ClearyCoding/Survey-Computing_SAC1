@@ -373,27 +373,35 @@ if (errorCheckServer === true) {
 }
 
 // Setup Backend Variables
-answerData = []
-let getAnswerData = await fetchData(`SELECT * FROM masterData`)
-for (let i = 0; i <= questionList.length; i++) {
-    answerData.push([])
-    for (let key in getAnswerData[i]) {
-        if (getAnswerData[i][key] === null) {
-            answerData[i].push(0)
-        } else {
-            answerData[i].push(getAnswerData[i][key])
+try {
+    answerData = []
+    let getAnswerData = await fetchData(`SELECT * FROM masterData`)
+    for (let i = 0; i <= questionList.length; i++) {
+        answerData.push([])
+        for (let key in getAnswerData[i]) {
+            if (getAnswerData[i][key] === null) {
+                answerData[i].push(0)
+            } else {
+                answerData[i].push(getAnswerData[i][key])
+            }
         }
+        answerData[i] = answerData[i].slice(0, -1)
     }
-    answerData[i] = answerData[i].slice(0, -1)
+    answerData = answerData.slice(0, -1)
+} catch {
+    throw new Error('Could not fetch \"masterData\" table.')
 }
-answerData = answerData.slice(0, -1)
 
-myAnswers = []
-let getMyAnswers = await fetchData(`SELECT * FROM ${userDataUUID}`)
-for (let key in getMyAnswers[0]) {
-    myAnswers.push(getMyAnswers[0][key])
+try {
+    myAnswers = []
+    let getMyAnswers = await fetchData(`SELECT * FROM ${userDataUUID}`)
+    for (let key in getMyAnswers[0]) {
+        myAnswers.push(getMyAnswers[0][key])
+    }
+    myAnswers = myAnswers.slice(0, -1)
+} catch {
+    throw new Error('Could not fetch UUID table.')
 }
-myAnswers = myAnswers.slice(0, -1)
 
 
 // Create button to see your current answers
