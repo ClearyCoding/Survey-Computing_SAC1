@@ -345,6 +345,14 @@ if (document.cookie) {
     await fetchData(`CREATE TABLE ${userDataUUID} (${answerDefinitions}aligndata int);`, userDataUUID)
 }
 
+try {
+    let testUUID = await fetchData(`SELECT * FROM ${userDataUUID}`)
+    console.log(testUUID[0])
+} catch {
+    document.cookie = `uuid=;expires=Thu, 01 Jan 1970 00:00:00 GMT`
+    location.reload()
+}
+
 // Create button to see your current answers
 countElement.addEventListener('click', function() {
     displayAnswers();
