@@ -326,6 +326,21 @@ countElement.innerHTML = `${questionList.length} Questions`;
 // Display Loading Screen
 displayLoader()
 
+// Check For Backend
+let errorCheckServer;
+try {
+    errorCheckServer = await fetchData(`SELECT * FROM masterData`)
+    console.log(errorCheckServer[0])
+    errorCheckServer = true
+} catch {
+    mainElement.innerHTML = `
+            <h1>The Server Is Offline :(</h1>
+            <p>Please Try Again Later.</p>
+        `
+    errorCheckServer = false
+    throw new Error('Could not fetch data from backend, process aborted.');
+}
+
 // Assign UUID to users without one
 let userUUID;
 let userDataUUID;
@@ -345,20 +360,8 @@ if (document.cookie) {
     await fetchData(`CREATE TABLE ${userDataUUID} (${answerDefinitions}aligndata int);`, userDataUUID)
 }
 
-// Check for errors
-let errorCheckServer;
+// Check if backend recognises UUID
 let errorCheckUser;
-try {
-    errorCheckServer = await fetchData(`SELECT * FROM masterData`)
-    console.log(errorCheckServer[0])
-    errorCheckServer = true
-} catch {
-    mainElement.innerHTML = `
-            <h1>The Server Is Offline :(</h1>
-            <p>Please Try Again Later.</p>
-        `
-    errorCheckServer = false
-}
 if (errorCheckServer === true) {
     try {
         errorCheckUser = await fetchData(`SELECT * FROM ${userDataUUID}`)
