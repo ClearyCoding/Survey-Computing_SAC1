@@ -39,7 +39,7 @@ main {
 
 /* Font */
 
-h1, h2, h3, h4, p, div, button {
+h1, h2, h3, h4, p, div, button, a {
     font-family: Roboto, Arial, sans-serif;
     color: white;
 }
@@ -193,15 +193,17 @@ button:hover {
 }
 #github-card a {
     cursor: pointer;
-    padding-left: 7px;
     display: flex;
     align-items: center;
+    text-decoration: none;
 }
 .github-logo {
     width: 1.5rem;
+    margin-left: 7px;
 }
-#github-card a:hover .github-logo {
-    filter: brightness(70%);
+#github-card a:hover {
+    filter: brightness(85%);
+    text-decoration: underline;
 }
 .previous-answers-container {
     margin-bottom: 20px;
@@ -276,8 +278,8 @@ button:hover {
     #start, #next, #back {
         min-width: 140px;
     }
-    #github-card a {
-        padding: 0;
+    .github-logo {
+        margin: 0;
     }
     #github-card h6 {
         display: none;
