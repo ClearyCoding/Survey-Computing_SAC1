@@ -345,18 +345,29 @@ if (document.cookie) {
     await fetchData(`CREATE TABLE ${userDataUUID} (${answerDefinitions}aligndata int);`, userDataUUID)
 }
 
+// Check for errors
+let errorCheckServer;
+let errorCheckUser;
 try {
-    let testUUID = await fetchData(`SELECT * FROM ${userDataUUID}`)
-    console.log(testUUID[0])
+    errorCheckServer = await fetchData(`SELECT * FROM masterData`)
+    console.log(errorCheckServer[0])
+    errorCheckServer = true
 } catch {
-    document.cookie = `uuid=;expires=Thu, 01 Jan 1970 00:00:00 GMT`
-    location.reload()
+    mainElement.innerHTML = `
+            <h1>The Server Is Offline :(</h1>
+            <p>Please Try Again Later.</p>
+        `
+    errorCheckServer = false
 }
-
-// Create button to see your current answers
-countElement.addEventListener('click', function() {
-    displayAnswers();
-});
+if (errorCheckServer === true) {
+    try {
+        errorCheckUser = await fetchData(`SELECT * FROM ${userDataUUID}`)
+        console.log(errorCheckUser[0])
+    } catch {
+        document.cookie = `uuid=;expires=Thu, 01 Jan 1970 00:00:00 GMT`
+        location.reload()
+    }
+}
 
 // Setup Backend Variables
 answerData = []
@@ -373,7 +384,6 @@ for (let i = 0; i <= questionList.length; i++) {
     answerData[i] = answerData[i].slice(0, -1)
 }
 answerData = answerData.slice(0, -1)
-console.log(answerData)
 
 myAnswers = []
 let getMyAnswers = await fetchData(`SELECT * FROM ${userDataUUID}`)
@@ -381,7 +391,12 @@ for (let key in getMyAnswers[0]) {
     myAnswers.push(getMyAnswers[0][key])
 }
 myAnswers = myAnswers.slice(0, -1)
-console.log(myAnswers)
+
+
+// Create button to see your current answers
+countElement.addEventListener('click', function() {
+    displayAnswers();
+});
 
 // Display the welcome screen
 displayStart()
