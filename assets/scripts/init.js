@@ -434,7 +434,7 @@ async function fetchData(command, uuidInput=null) {
     const data = { query: command };
 
     try {
-        let response = await fetch("https://redesigned-dollop-q6p5grvrpvvf95q7-8080.app.github.dev/", {
+        let response = await fetch("http://3.24.139.62:8080", {
             method:"POST",
             headers: {
                 "Accept": "application/json",
