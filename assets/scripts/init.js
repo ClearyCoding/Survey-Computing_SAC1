@@ -40,18 +40,7 @@ const questionList = [
         answers: ['Major Impact', 'Decent Impact', 'Limited Impact', 'Minimal Impact','No Impact', 'Prefer Not To Say'],
     },
 ]
-let answerData = [
-    [1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1],
-]
+let answerData = []
 let myAnswers = []
 
 function displayNextQuestion(question = null) {
