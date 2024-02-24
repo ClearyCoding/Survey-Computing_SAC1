@@ -40,7 +40,18 @@ const questionList = [
         answers: ['Major Impact', 'Decent Impact', 'Limited Impact', 'Minimal Impact','No Impact', 'Prefer Not To Say'],
     },
 ]
-let answerData = []
+let answerData = [
+    [1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1],
+]
 let myAnswers = []
 
 function displayNextQuestion(question = null) {
@@ -423,7 +434,7 @@ async function fetchData(command, uuidInput=null) {
     const data = { query: command };
 
     try {
-        let response = await fetch("https://3.24.139.62:8080", {
+        let response = await fetch("https://vk3dns.clearycoding.com:8080", {
             method:"POST",
             headers: {
                 "Accept": "application/json",
