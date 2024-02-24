@@ -10,8 +10,6 @@
     Alexander Cleary, Nathan Scott & David Sprung
     <br/>
     <br/>
-    <a href="https://github.com/ClearyCoding/Computing-SAC1">View Demo</a>
-    .
     <a href="https://github.com/ClearyCoding/Computing-SAC1/issues">Report Bug</a>
     .
     <a href="https://github.com/ClearyCoding/Computing-SAC1/issues">Request Feature</a>

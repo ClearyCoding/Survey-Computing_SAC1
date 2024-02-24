@@ -13,8 +13,7 @@ body {
     #3e41ff,
     #9fdcff) fixed;
     background-size: 600% 600%;
-    animation: AnimationName 60s ease infinite;
-    animation-timing-function: linear;
+    animation: AnimationName 180s linear infinite;
 }
 @keyframes AnimationName {
     0%{background-position: 0 50%}
