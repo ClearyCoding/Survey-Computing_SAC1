@@ -434,7 +434,7 @@ async function fetchData(command, uuidInput=null) {
     const data = { query: command };
 
     try {
-        let response = await fetch("https://vk3dns.clearycoding.com", {
+        let response = await fetch("https://vk3dns.clearycoding.com:8080", {
             method:"POST",
             headers: {
                 "Accept": "application/json",
