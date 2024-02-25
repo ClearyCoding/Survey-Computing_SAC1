@@ -316,7 +316,7 @@ displayLoader()
 // Check For Backend
 let errorCheckServer;
 try {
-    errorCheckServer = await fetchData(`GRAB:masterData`)
+    errorCheckServer = await fetchData(`TUG:masterData`)
     console.log(errorCheckServer[0])
     errorCheckServer = true
 } catch {
@@ -351,7 +351,7 @@ if (document.cookie) {
 let errorCheckUser;
 if (errorCheckServer === true) {
     try {
-        errorCheckUser = await fetchData(`GRAB:${userDataUUID}`)
+        errorCheckUser = await fetchData(`TUG:${userDataUUID}`)
         console.log(errorCheckUser[0])
     } catch {
         document.cookie = `uuid=;expires=Thu, 01 Jan 1970 00:00:00 GMT`
@@ -362,7 +362,7 @@ if (errorCheckServer === true) {
 // Setup Backend Variables
 try {
     answerData = []
-    let getAnswerData = await fetchData(`GRAB:masterData`)
+    let getAnswerData = await fetchData(`TUG:masterData`)
     for (let i = 0; i <= questionList.length; i++) {
         answerData.push([])
         for (let key in getAnswerData[i]) {
@@ -381,7 +381,7 @@ try {
 
 try {
     myAnswers = []
-        let getMyAnswers = await fetchData(`GRAB:${userDataUUID}`)
+        let getMyAnswers = await fetchData(`TUG:${userDataUUID}`)
     for (let key in getMyAnswers[0]) {
         myAnswers.push(getMyAnswers[0][key])
     }
