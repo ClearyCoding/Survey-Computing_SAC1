@@ -84,13 +84,11 @@ function displayNextQuestion(question = null) {
     // Sets up answer buttons to store and display results
     for (let i = 0; i < questionList[currentQuestion].answers.length; i++) {
         document.querySelector(`#answer${i}`).addEventListener('click', function() {
-            fetchData(`UPDATE ${userDataUUID} SET q${currentQuestion} = ${i} WHERE aligndata = 1;`)
+            fetchData(`SHOVE:${userDataUUID}:${currentQuestion}:${i}`)
             if (myAnswers[currentQuestion] !== null) {
                 answerData[currentQuestion][myAnswers[currentQuestion]] -= 1;
-                fetchData(`UPDATE masterData SET a${myAnswers[currentQuestion]}=${answerData[currentQuestion][myAnswers[currentQuestion]]} WHERE qNum = ${currentQuestion};`)
             }
             answerData[currentQuestion][i] += 1;
-            fetchData(`UPDATE masterData SET a${i}=${answerData[currentQuestion][i]} WHERE qNum = ${currentQuestion};`)
             myAnswers[currentQuestion] = i
 
             if (question === null) {
@@ -318,7 +316,7 @@ displayLoader()
 // Check For Backend
 let errorCheckServer;
 try {
-    errorCheckServer = await fetchData(`SELECT * FROM masterData`)
+    errorCheckServer = await fetchData(`GRAB:masterData`)
     console.log(errorCheckServer[0])
     errorCheckServer = true
 } catch {
@@ -346,14 +344,14 @@ if (document.cookie) {
         answerDefinitions += `q${i} int, `;
     }
     //answerDefinitions = answerDefinitions.slice(0,-2);
-    await fetchData(`CREATE TABLE ${userDataUUID} (${answerDefinitions}aligndata int);`, userDataUUID)
+    await fetchData(`BIRTH:${userDataUUID}:${answerDefinitions}`)
 }
 
 // Check if backend recognises UUID
 let errorCheckUser;
 if (errorCheckServer === true) {
     try {
-        errorCheckUser = await fetchData(`SELECT * FROM ${userDataUUID}`)
+        errorCheckUser = await fetchData(`GRAB:${userDataUUID}`)
         console.log(errorCheckUser[0])
     } catch {
         document.cookie = `uuid=;expires=Thu, 01 Jan 1970 00:00:00 GMT`
@@ -364,7 +362,7 @@ if (errorCheckServer === true) {
 // Setup Backend Variables
 try {
     answerData = []
-    let getAnswerData = await fetchData(`SELECT * FROM masterData`)
+    let getAnswerData = await fetchData(`GRAB:masterData`)
     for (let i = 0; i <= questionList.length; i++) {
         answerData.push([])
         for (let key in getAnswerData[i]) {
@@ -383,7 +381,7 @@ try {
 
 try {
     myAnswers = []
-    let getMyAnswers = await fetchData(`SELECT * FROM ${userDataUUID}`)
+        let getMyAnswers = await fetchData(`GRAB:${userDataUUID}`)
     for (let key in getMyAnswers[0]) {
         myAnswers.push(getMyAnswers[0][key])
     }
@@ -419,7 +417,7 @@ function getCookie(name) {
 }
 
 
-async function fetchData(command, uuidInput=null) {
+async function fetchData(command) {
     const data = { query: command };
 
     try {
@@ -440,10 +438,6 @@ async function fetchData(command, uuidInput=null) {
         }
 
         const responseData = await response.text();
-
-        if (uuidInput !== null) {
-            fetchData(`INSERT INTO ${uuidInput} (aligndata) VALUES (1);`);
-        }
 
         try {
             return JSON.parse(responseData);
