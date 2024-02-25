@@ -267,7 +267,10 @@ function displayStart() {
         mainElement.innerHTML = `
     ${commonStartElements}
     <p>By clicking "Start Survey!", you agree to share your answers for this survey <strong>anonymously</strong> for use in this study. Particpant data cannot be traced back to any individual user, and will be deleted after the study concludes.</p>
-    <button id="start">${isComplete(0, "i") === 0 ? 'Start Survey!' : 'Continue Survey'}</button>
+    <div id="start-buttons">
+        <button id="start">${isComplete(0, "i") === 0 ? 'Start Survey!' : 'Continue Survey'}</button>
+        <!--<button id="skip">See Conclusion</button>-->
+    </div>
     `
     }
 
@@ -276,6 +279,10 @@ function displayStart() {
         displayNextQuestion();
     });
 
+    // Create a button to skip to conclusion
+    document.querySelector('#skip').addEventListener('click', function() {
+        displayConclusion();
+    });
 }
 function displayLoader() {
     mainElement.innerHTML = `

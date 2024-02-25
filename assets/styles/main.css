@@ -99,6 +99,9 @@ p {
     h6 {
         font-size: 0.7rem;
     }
+    p {
+        font-size: 1rem;
+    }
 }
 
 /* Custom Scrollbar */
@@ -275,9 +278,6 @@ button:hover {
         width: 140px;
         font-size: 1rem;
     }
-    #start, #next, #back {
-        min-width: 140px;
-    }
     .github-logo {
         margin: 0;
     }
@@ -297,20 +297,40 @@ button:hover {
         button {
             width: 120px;
         }
-        #start, #next, #back {
-            min-width: 120px;
-        }
         .previous-questions-grid {
             grid-template-columns: 1fr 1fr 1fr;
         }
     }
 }
-#start, #next, #back {
+#start-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#start, #next, #back, #skip {
     margin-top: 30px;
     width: unset;
     padding-right: 20px;
     padding-left: 20px;
     min-width: 185px;
+}
+@media (max-width: 450px) {
+    #start, #next, #back, #skip {
+        min-width: 160px;
+    }
+
+    @media (max-width: 350px) {
+        #start, #next, #back, #skip {
+            min-width: 120px;
+            padding: 15px;
+        }
+        #skip {
+            margin-top: 5px;
+        }
+        #start-buttons {
+            flex-direction: column;
+        }
+    }
 }
 
 /* Loader */
