@@ -84,7 +84,7 @@ function displayNextQuestion(question = null) {
     // Sets up answer buttons to store and display results
     for (let i = 0; i < questionList[currentQuestion].answers.length; i++) {
         document.querySelector(`#answer${i}`).addEventListener('click', function() {
-            fetchData(`SHOVE:${userDataUUID}:${currentQuestion}:${i}`)
+            sendCommand(`SHOVE:${userDataUUID}:${currentQuestion}:${i}`)
             if (myAnswers[currentQuestion] !== null) {
                 answerData[currentQuestion][myAnswers[currentQuestion]] -= 1;
             }
@@ -316,7 +316,7 @@ displayLoader()
 // Check For Backend
 let errorCheckServer;
 try {
-    errorCheckServer = await fetchData(`TUG:masterData`)
+    errorCheckServer = await sendCommand(`TUG:masterData`)
     console.log(errorCheckServer[0])
     errorCheckServer = true
 } catch {
@@ -344,14 +344,14 @@ if (document.cookie) {
         answerDefinitions += `q${i} int, `;
     }
     //answerDefinitions = answerDefinitions.slice(0,-2);
-    await fetchData(`BIRTH:${userDataUUID}:${answerDefinitions}`)
+    await sendCommand(`BIRTH:${userDataUUID}:${answerDefinitions}`)
 }
 
 // Check if backend recognises UUID
 let errorCheckUser;
 if (errorCheckServer === true) {
     try {
-        errorCheckUser = await fetchData(`TUG:${userDataUUID}`)
+        errorCheckUser = await sendCommand(`TUG:${userDataUUID}`)
         console.log(errorCheckUser[0])
     } catch {
         document.cookie = `uuid=;expires=Thu, 01 Jan 1970 00:00:00 GMT`
@@ -362,7 +362,7 @@ if (errorCheckServer === true) {
 // Setup Backend Variables
 try {
     answerData = []
-    let getAnswerData = await fetchData(`TUG:masterData`)
+    let getAnswerData = await sendCommand(`TUG:masterData`)
     for (let i = 0; i <= questionList.length; i++) {
         answerData.push([])
         for (let key in getAnswerData[i]) {
@@ -381,7 +381,7 @@ try {
 
 try {
     myAnswers = []
-        let getMyAnswers = await fetchData(`TUG:${userDataUUID}`)
+        let getMyAnswers = await sendCommand(`TUG:${userDataUUID}`)
     for (let key in getMyAnswers[0]) {
         myAnswers.push(getMyAnswers[0][key])
     }
@@ -417,7 +417,7 @@ function getCookie(name) {
 }
 
 
-async function fetchData(command) {
+async function sendCommand(command) {
     const data = { query: command };
 
     try {
