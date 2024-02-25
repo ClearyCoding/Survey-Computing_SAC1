@@ -280,9 +280,9 @@ function displayStart() {
     });
 
     // Create a button to skip to conclusion
-    document.querySelector('#skip').addEventListener('click', function() {
+    /*document.querySelector('#skip').addEventListener('click', function() {
         displayConclusion();
-    });
+    });*/
 }
 function displayLoader() {
     mainElement.innerHTML = `
