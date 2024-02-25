@@ -254,6 +254,7 @@ function displayAnswers(question=null) {
 
 }
 function displayStart() {
+    countElement.innerHTML = `${questionList.length} Questions`;
     const commonStartElements = `
         <h1>Attitudes To COVID-19</h1>
     `
