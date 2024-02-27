@@ -370,7 +370,7 @@ if (errorCheckServer === true) {
 // Setup Backend Variables
 try {
     answerData = []
-    let getAnswerData = await sendCommand(`TUG:masterDataPlease`)
+    let getAnswerData = await sendCommand(`TUG:masterData`)
     for (let i = 0; i <= questionList.length; i++) {
         answerData.push([])
         for (let key in getAnswerData[i]) {
@@ -435,6 +435,7 @@ async function sendCommand(command) {
                 "Accept": "application/json",
                 "Content-Type": "application/json",
                 "Random-Value-No-Actual-Use": "haha-funny-number",
+                "Origin": "http://localhost:63342",
             },
             body: JSON.stringify(data)
         });
