@@ -84,7 +84,7 @@ function displayNextQuestion(question = null) {
     // Sets up answer buttons to store and display results
     for (let i = 0; i < questionList[currentQuestion].answers.length; i++) {
         document.querySelector(`#answer${i}`).addEventListener('click', function() {
-            sendCommand(`SHOVE:${userDataUUID}:${currentQuestion}:${i}`)
+            sendCommand(`SHOVE:${userDataUUID}:${currentQuestion}:${i}`).then(() => {})
             if (myAnswers[currentQuestion] !== null) {
                 answerData[currentQuestion][myAnswers[currentQuestion]] -= 1;
             }
