@@ -164,9 +164,11 @@ button:hover {
     background: #ffffff;
     color: #2379ad;
     z-index: 1;
+}
+.question-count-hover {
     cursor: pointer;
 }
-#question-count:hover {
+.question-count-hover:hover {
     text-decoration: underline;
 }
 #title-card {

@@ -400,6 +400,7 @@ try {
 
 
 // Create button to see your current answers
+countElement.classList.add("question-count-hover");
 countElement.addEventListener('click', function() {
     displayAnswers();
 });
