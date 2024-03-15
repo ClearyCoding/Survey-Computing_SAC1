@@ -167,7 +167,6 @@ function displayConclusion() {
     <p>Conclusion coming soon!</p>
     `
     console.log(answerData)
-    console.log(myAnswers)
     clearInterval(countTick);
     countElement.innerHTML = `Your Answers`;
 }
