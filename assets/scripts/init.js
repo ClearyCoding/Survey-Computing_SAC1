@@ -324,17 +324,20 @@ function conclusionClasses(mode) {
         document.body.classList.add('parallax-body');
         mainElement.classList.add('parallax');
         mainElement.classList.remove('main');
+        headerElement.style.paddingTop = '0';
     }
     else {
         document.documentElement.classList.remove('parallax-html');
         document.body.classList.remove('parallax-body');
         mainElement.classList.remove('parallax');
         mainElement.classList.add('main');
+        headerElement.style.paddingTop = '1rem';
     }
 }
 
 // Initiate Common Variables
 const mainElement = document.querySelector('main');
+const headerElement = document.querySelector('header');
 const countElement = document.querySelector('#question-count');
 let currentQuestion = 0;
 let countTick;
