@@ -44,6 +44,7 @@ let answerData = []
 let myAnswers = []
 
 function displayNextQuestion(question = null) {
+    conclusionClasses(false)
     // Checks if there is another question to display, if not, end the survey
     if (question === null) {
         currentQuestion = isComplete(0, "i");
@@ -100,6 +101,7 @@ function displayNextQuestion(question = null) {
     }
 }
 function displayResults(question=null) {
+    conclusionClasses(false)
     if (question !== null) {
         currentQuestion = question;
     }
@@ -162,6 +164,7 @@ function displayResults(question=null) {
     });
 }
 function displayConclusion() {
+    conclusionClasses(true)
     mainElement.innerHTML = `
     <h2>Conclusion</h2>
     <p>Conclusion coming soon!</p>
@@ -171,6 +174,7 @@ function displayConclusion() {
     countElement.innerHTML = `Your Answers`;
 }
 function displayAnswers(question=null) {
+    conclusionClasses(false)
     clearInterval(countTick);
     countElement.innerHTML = `Your Answers`;
 
@@ -255,6 +259,7 @@ function displayAnswers(question=null) {
 
 }
 function displayStart() {
+    conclusionClasses(false)
     countElement.innerHTML = `${questionList.length} Questions`;
     const commonStartElements = `
         <h1>Attitudes To COVID-19</h1>
@@ -287,6 +292,7 @@ function displayStart() {
     });*/
 }
 function displayLoader() {
+    conclusionClasses(false)
     mainElement.innerHTML = `
         <div id="loader">
             <div id="loader-wheel">
@@ -309,6 +315,21 @@ function isComplete(start=0, mode=`boolean`) {
                 return i;
             }
         }
+    }
+}
+
+function conclusionClasses(mode) {
+    if (mode) {
+        document.documentElement.classList.add('parallax-html');
+        document.body.classList.add('parallax-body');
+        mainElement.classList.add('parallax');
+        mainElement.classList.remove('main');
+    }
+    else {
+        document.documentElement.classList.remove('parallax-html');
+        document.body.classList.remove('parallax-body');
+        mainElement.classList.remove('parallax');
+        mainElement.classList.add('main');
     }
 }
 
