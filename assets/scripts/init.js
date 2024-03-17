@@ -422,7 +422,7 @@ try {
             <p>Please Try Again Later.</p>
         `
     errorCheckServer = false
-    displayConclusion() //throw new Error('Could not fetch data from backend, process aborted.');
+    throw new Error('Could not fetch data from backend, process aborted.');
 }
 
 // Assign UUID to users without one
