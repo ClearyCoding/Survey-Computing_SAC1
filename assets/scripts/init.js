@@ -282,7 +282,7 @@ function displayStart() {
     <p>By clicking "Start Survey!", you agree to share your answers for this survey <strong>anonymously</strong> for use in this study. Particpant data cannot be traced back to any individual user, and will be deleted after the study concludes.</p>
     <div id="start-buttons">
         <button id="start">${isComplete(0, "i") === 0 ? 'Start Survey!' : 'Continue Survey'}</button>
-        <!--<button id="skip">See Conclusion</button>-->
+        <button id="skip">See Conclusion</button>
     </div>
     `
     }

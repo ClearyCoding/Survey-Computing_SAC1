@@ -322,6 +322,12 @@ button:hover {
     padding-left: 20px;
     min-width: 185px;
 }
+#start {
+    font-weight: bolder;
+}
+#skip {
+    font-weight: lighter;
+}
 @media (max-width: 450px) {
     #start, #next, #back, #skip {
         min-width: 160px;
