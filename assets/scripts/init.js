@@ -170,16 +170,34 @@ function displayResults(question=null) {
     });
 }
 function displayConclusion() {
+    let totals = []
+    for (let i = 0; i < questionList.length; i++) {
+        let rowTotal = 0
+        for (let j = 0; j < questionList[i].answers.length - 1; j++) {
+            rowTotal += answerData[i][j]
+        }
+        totals.push(rowTotal)
+    }
+
     conclusionClasses(true)
     mainElement.innerHTML = `
     <section class="void void-title">
-        <h2>Attitudes to Covid-19</h2>
-        <h3>David Sprung, Nathan Scott & Alexander Cleary</h3>
+        <h1>${documentTitle}</h1>
+        <p>Since 2019, COVID-19 has</p>
     </section>
     <section class="section section-infections section-first">
         <h2>Infections</h2>
+        <div class="graphic">
+            <h3>In a room with 10 people:</h3>
+            <div>
+                <p>${Math.round((10 / (totals[4]) * answerData[4][0]) * 100) / 100} people never had COVID</p>
+                <p>${Math.round((10 / (totals[4]) * answerData[4][1]) * 100) / 100} people have had COVID once</p>
+                <p>${Math.round((10 / (totals[4]) * answerData[4][2]) * 100) / 100} people have had COVID twice</p>
+                <p>${(Math.round((10 / (totals[4]) * answerData[4][3]) * 100) / 100) + (Math.round((10 / (totals[4]) * answerData[4][4]) * 100) / 100)} people have had COVID 3+ times</p>
+            </div>
+        </div>
     </section>
-    <section class="void void-vaccination">
+    <section class="section section-vaccination section-transparent">
         <h2>Vaccination</h2>
     </section>
     <section class="section section-impacts">
@@ -192,9 +210,10 @@ function displayConclusion() {
         <button id="discussion">Discussion</button>
         <button id="reflections">Reflections</button>
     </section>
-    <section class="section section-references">
+    <section class="section section-references section-transparent">
         <h3>References:</h3>
         <p>\t Melbourne University. (2020). Taking The Pulse Of The Nation. \n<a target="_blank" href="https://melbourneinstitute.unimelb.edu.au/__data/assets/pdf_file/0004/3468172/Taking-the-Pulse-of-the-Nation-3-8-August.pdf">https://melbourneinstitute.unimelb.edu.au/__data/assets/pdf_file/0004/3468172/Taking-the-Pulse-of-the-Nation-3-8-August.pdf</a></p>
+        <p>\t Department of Health. (2024). Victorian COVID-19 Surveilence Report. \n<a target="_blank" href="https://www.health.vic.gov.au/infectious-diseases/victorian-covid-19-surveillance-report">https://www.health.vic.gov.au/infectious-diseases/victorian-covid-19-surveillance-report</a></p>
     </section>
     `
     console.log(answerData)
@@ -218,14 +237,38 @@ function displayConclusion() {
         <section class="void void-title">
             <h2>Personal Reflections</h2>
         </section>
-        <section class="section section-first">
+        <section class="section section-reflection section-first">
             <h2>Alexander Cleary</h2>
         </section>
-        <section class="section">
+        <section class="section section-reflection section-transparent">
             <h2>Nathan Scott</h2>
+            <p>
+            This was a lot of work, I spent tens of hours debugging and just (figuratively) banging my head against my desk. It ended up teaching me a whole new coding language, javascript. I’d had some (very limited) experience with it in the past, but until I started this project, I didn't know anything about using it for big projects. It was also my introduction to building my own objects, attributes and methods. Of course, I’d used them before and had a basic understanding of how they worked, just not made my own. 
+
+            There were many issues along the way but the one we struggled with the most was CORS. It stands for Cross-origin resource sharing and it is a security measure that browsers put in place to restrict potentially malicious responses, essentially by requiring a valid SSL certificate from traffic sent externally to its local network. We eventually got around this by using a subdomain of clearycoding.com (vk3dns.clearycoding.com) and got certificates for that subdomain. Because of the potential security risks, the HTTP module I used requires these certificates to be stored under ‘-x 600’ permissions, which basically means only a root user can read, write or execute. It worked well for testing purposes as I could simply input the password whenever needed but wreaked chaos on my attempts at automatic server reboots. This turned into a lasting problem which was only fixed right at the tail end of the project by injecting the root user credentials directly into the server with some ‘echo “{password}” | sudo node /home/pi/middleman.js’ business.
+
+            If I were to do this project again, I’d focus on getting SSL certificates sooner. It was a massive hassle and a lot of stress trying to get it working. It took us a long time to work out the issue was certificates. You don’t get any reason with CORS, all you get is a generic “CORS ERROR” message. In case it’s not clear, I really don’t like CORS at all.
+
+            The group-work was reasonably evenly split between Alex and me. David didn't do quite as much but we both write code in our own specific ways that makes sense to only two things; the compiler and ourselves. It would’ve made the project more painful to have someone else working on our scripts. His job was to check the boxes on the rubric to make sure we got the marks, but he did suggest ideas for fixing bugs and was there for basically all the development process.
+            </p>
         </section>
-        <section class="section">
+        <section class="section section-reflection">
             <h2>David Sprung</h2>
+            <p>
+            I learnt a lot about html and css since working with two dedicated programmers forces me to learn quickly. I learnt about security and servers and also cookies. I also learnt a lot about how my group members work and how to work effectively with them.
+            
+            I struggled with coming up with ideas since this project had a lot of freedom and I was the ‘idea person’. I’m usually not good with ideas, preferring to follow a set of instructions so this was challenging for me. I overcame this struggle by giving it a go and doing it despite not being comfortable with being the idea generator.
+            
+            I would design more survey questions since the questions that were used in the survey didn’t give as much information as it could have been if there were more questions. I would also try to contribute more to the coding of the website as it would allow me to fully understand all the workings of the website instead of just the general idea and a few details.
+            
+            Communication between group members was not terrible as we had a discord chat set up for working on the project and on a few select days we would be in a voice chat working on the project. I struggled with communicating the importance of non coding based work and that we should work on it more because they were trying to fix every part of the website and improve it further than was needed.
+            
+            Since I am not as advanced in html and css as the other members in my group I somewhat felt left out of the main coding but despite this I still contributed to the code and to balance the work I was the main member working on the writing part of this assignment. I was able to use my weird passion for css gradients to help fix up the background gradient.
+            
+            We didn’t have any arguments or disagreements. Sometimes we left some of the work to the last day but we worked efficiently and got it done easily.
+            
+            I think if we spent less time on coding the website and more time focusing on what the assignment wanted us to do we would have had an easier time completing this assignment but I think overall us having done it this way has helped us all learn a lot about html/css. Doing it again I would start with the required assignment stuff and then after that is done work on extending ourselves.
+            </p>
         </section>
         <section class="void void-buttons">
              <button id="conclusion-button">Back</button>
@@ -327,34 +370,30 @@ function displayAnswers(question=null) {
 function displayStart() {
     conclusionClasses(false)
     countElement.innerHTML = `${questionList.length} Questions`;
-    const commonStartElements = `
-        <h1>Attitudes To COVID-19</h1>
-    `
     if (isComplete()) {
         mainElement.innerHTML = `
-    ${commonStartElements}
-    <p>You have already completed this survey. To see the conclusion, press the "See Conclusion" button.</p>
-    <button id="start">See Conclusion</button>
-    `
+        <h1>${documentTitle}</h1>
+        <p>You have already completed this survey. To see the conclusion, press the "See Conclusion" button.</p>
+        <button id="start">See Conclusion</button>
+        `
     } else {
         mainElement.innerHTML = `
-    ${commonStartElements}
-    <p>By clicking "Start Survey!", you agree to share your answers for this survey <strong>anonymously</strong> for use in this study. Particpant data cannot be traced back to any individual user, and will be deleted after the study concludes.</p>
-    <div id="start-buttons">
-        <button id="start">${isComplete(0, "i") === 0 ? 'Start Survey!' : 'Continue Survey'}</button>
-        <button id="skip">See Conclusion</button>
-    </div>
-    `
+        <h1>${documentTitle}</h1>
+        <p>By clicking "Start Survey!", you agree to share your answers for this survey <strong>anonymously</strong> for use in this study. Particpant data cannot be traced back to any individual user, and will be deleted after the study concludes.</p>
+        <div id="start-buttons">
+            <button id="start">${isComplete(0, "i") === 0 ? 'Start Survey!' : 'Continue Survey'}</button>
+            <button id="skip">See Conclusion</button>
+        </div>
+        `
+        // Create a button to skip to conclusion
+        document.querySelector('#skip').addEventListener('click', function() {
+            displayConclusion();
+        });
     }
 
     // Create a button to start the survey
     document.querySelector('#start').addEventListener('click', function() {
         displayNextQuestion();
-    });
-
-    // Create a button to skip to conclusion
-    document.querySelector('#skip').addEventListener('click', function() {
-        displayConclusion();
     });
 }
 function displayLoader() {
@@ -404,6 +443,7 @@ function conclusionClasses(mode) {
 const mainElement = document.querySelector('main');
 const headerElement = document.querySelector('header');
 const countElement = document.querySelector('#question-count');
+const documentTitle = `Attitudes To COVID-19`
 let currentQuestion = 0;
 let countTick;
 countElement.innerHTML = `${questionList.length} Questions`;
