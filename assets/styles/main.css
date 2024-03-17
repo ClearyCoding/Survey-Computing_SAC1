@@ -399,3 +399,13 @@ button:hover {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
+#human-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    width: 80%;
+    align-self: center;
+}
+#human-grid img {
+    width: 100%;
+}

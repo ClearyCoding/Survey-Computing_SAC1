@@ -131,11 +131,17 @@ function displayResults(question=null) {
             datasets: [{
                 backgroundColor: [
                     "#3e41ff",
+                    "#f6c32b",
                     "#33a9f1",
+                    "#d37c18",
                     "#035bbb",
+                    "#f1a437",
                     "#6fc1f1",
+                    "#D3A518",
                     "#5970ff",
+                    "#d38818",
                     "#6caee5",
+                    "#ff970e",
                     "#7676ff",
                 ],
                 data: answerData[currentQuestion].slice(0, questionList[currentQuestion].answers.length - 1),
@@ -189,11 +195,12 @@ function displayConclusion() {
         <h2>Infections</h2>
         <div class="graphic">
             <h3>In a room with 10 people:</h3>
+            <div id="human-grid"></div>
             <div>
-                <p>${Math.round((10 / (totals[4]) * answerData[4][0]) * 100) / 100} people never had COVID</p>
-                <p>${Math.round((10 / (totals[4]) * answerData[4][1]) * 100) / 100} people have had COVID once</p>
-                <p>${Math.round((10 / (totals[4]) * answerData[4][2]) * 100) / 100} people have had COVID twice</p>
-                <p>${(Math.round((10 / (totals[4]) * answerData[4][3]) * 100) / 100) + (Math.round((10 / (totals[4]) * answerData[4][4]) * 100) / 100)} people have had COVID 3+ times</p>
+                <p>${Math.round(10 / (totals[4]) * answerData[4][0])} ${Math.round(10 / (totals[4]) * answerData[4][0]) === 1 ? 'person has' : 'people have'} never had COVID</p>
+                <p>${Math.round(10 / (totals[4]) * answerData[4][1])} ${Math.round(10 / (totals[4]) * answerData[4][1]) === 1 ? 'person has' : 'people have'} had COVID once</p>
+                <p>${Math.round(10 / (totals[4]) * answerData[4][2])} ${Math.round(10 / (totals[4]) * answerData[4][2]) === 1 ? 'person has' : 'people have'} had COVID twice</p>
+                <p>${(Math.round((10 / (totals[4]) * answerData[4][3]))) + (Math.round(10 / (totals[4]) * answerData[4][4]))} ${(Math.round((10 / (totals[4]) * answerData[4][3]))) + (Math.round(10 / (totals[4]) * answerData[4][4])) === 1 ? 'person has' : 'people have'} had COVID 3+ times</p>
             </div>
         </div>
     </section>
@@ -219,6 +226,23 @@ function displayConclusion() {
     console.log(answerData)
     clearInterval(countTick);
     countElement.innerHTML = `Your Answers`;
+
+    /*const humanGrid = document.querySelector('#human-grid')
+    let hue = [30, 400, 190, 50]
+    let peopleValues = [Math.round(10 / (totals[4]) * answerData[4][0]), Math.round(10 / (totals[4]) * answerData[4][1]), Math.round(10 / (totals[4]) * answerData[4][2]), Math.round(10 / (totals[4]) * answerData[4][3]) + Math.round(10 / (totals[4]) * answerData[4][4])]
+    const remainder = (10 - (peopleValues[0] + peopleValues[1] + peopleValues[2] + peopleValues[3]))
+    for (let i = 0; i < 4; i++) {
+        for (let j = 0; j < peopleValues[i]; j++) {
+            humanGrid.innerHTML += `
+                <img alt="human" src="/assets/images/human.png" style="filter: invert(33%) sepia(100%) saturate(2000%) hue-rotate(${hue[i]}deg) brightness(90%);">
+            `
+        }
+    }
+    for (let j = 0; j < remainder; j++) {
+        humanGrid.innerHTML += `
+                <img alt="human" src="/assets/images/human.png" style="filter: saturate(2000%) brightness(10%);">
+            `
+    }*/
 
     document.querySelector('#discussion').addEventListener('click', () => {
         conclusionClasses(false)
