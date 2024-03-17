@@ -126,7 +126,13 @@ p {
 }
 .question {
     padding: 0 5px;
+    margin-bottom: 0;
+}
+.total {
+    color: #e1e1e1;
+    margin-top: 0;
     margin-bottom: 30px;
+    font-size: 1.25rem;
 }
 button {
     border: solid 3px white;

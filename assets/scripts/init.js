@@ -111,8 +111,14 @@ function displayResults(question=null) {
         countElement.innerHTML = `${window.innerWidth < 450 ? 'Q': 'Question '}${currentQuestion + 1} of ${questionList.length}`;
     }, 30);
 
+    let totalResponses = 0
+    for (let i = 0; i < questionList[currentQuestion].answers.length - 1 ; i++) {
+        totalResponses +=  answerData[currentQuestion][i]
+    }
+
     mainElement.innerHTML = `
     <h2 class="question">${questionList[currentQuestion].question}</h2>
+    <h3 class="total">${totalResponses} Responses</h3>
     <canvas id="pie" style="width:100%;max-width:700px"></canvas>
     <button id="next">${question !== null ? 'Back' : isComplete() ? 'Finish Survey' : 'Next Question'}</button>
     `
@@ -317,7 +323,6 @@ function isComplete(start=0, mode=`boolean`) {
         }
     }
 }
-
 function conclusionClasses(mode) {
     if (mode) {
         document.documentElement.classList.add('parallax-html');
