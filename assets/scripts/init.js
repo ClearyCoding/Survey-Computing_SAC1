@@ -193,7 +193,8 @@ function displayConclusion() {
         <button id="reflections">Reflections</button>
     </section>
     <section class="section section-references">
-        <h3>References</h3>
+        <h3>References:</h3>
+        <p>\t Melbourne University. (2020). Taking The Pulse Of The Nation. \n<a target="_blank" href="https://melbourneinstitute.unimelb.edu.au/__data/assets/pdf_file/0004/3468172/Taking-the-Pulse-of-the-Nation-3-8-August.pdf">https://melbourneinstitute.unimelb.edu.au/__data/assets/pdf_file/0004/3468172/Taking-the-Pulse-of-the-Nation-3-8-August.pdf</a></p>
     </section>
     `
     console.log(answerData)
@@ -352,9 +353,9 @@ function displayStart() {
     });
 
     // Create a button to skip to conclusion
-    /*document.querySelector('#skip').addEventListener('click', function() {
+    document.querySelector('#skip').addEventListener('click', function() {
         displayConclusion();
-    });*/
+    });
 }
 function displayLoader() {
     conclusionClasses(false)
