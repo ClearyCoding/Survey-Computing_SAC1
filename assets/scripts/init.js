@@ -281,7 +281,7 @@ function displayConclusion() {
             <p>
             I learnt a lot about html and css since working with two dedicated programmers forces me to learn quickly. I learnt about security and servers and also cookies. I also learnt a lot about how my group members work and how to work effectively with them.
             
-            I struggled with coming up with ideas since this project had a lot of freedom and I was the ‘idea person’. I’m usually not good with ideas, preferring to follow a set of instructions so this was challenging for me. I overcame this struggle by giving it a go and doing it despite not being comfortable with being the idea generator.
+            I struggled with coming up with ideas since this project had a lot of freedom and I was the ‘idea person’. I’m usually not good with ideas, preferring to follow a set of instructions so this was challenging for me. I overcame this struggle by giving it a go and doing it despite not being comfortable being the idea generator.
             
             I would design more survey questions since the questions that were used in the survey didn’t give as much information as it could have been if there were more questions. I would also try to contribute more to the coding of the website as it would allow me to fully understand all the workings of the website instead of just the general idea and a few details.
             
