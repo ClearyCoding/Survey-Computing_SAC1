@@ -41,6 +41,7 @@
     min-height: 450px;
     padding: 30px;
     box-sizing: border-box;
+    background-color: #3e41ff;
 }
 @media (max-width: 400px) {
     .section {
@@ -60,4 +61,45 @@
 .anchor {
     position: absolute;
     top: -70px;
+}
+
+/* Section Sizes */
+.void-title {
+    height: 600px;
+}
+.section-first {
+    margin-top: 600px;
+}
+.void-vaccinations {
+    height: 500px;
+}
+.section-impacts {
+    margin-top: 500px;
+}
+.void-buttons {
+    height: 120px;
+}
+.section-references {
+    margin-top: 120px;
+}
+
+/* Title*/
+.void-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.void-title h2 {
+    margin: 0;
+}
+.void-title h3 {
+    font-weight: normal;
+}
+
+/* Buttons */
+.void-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
 }

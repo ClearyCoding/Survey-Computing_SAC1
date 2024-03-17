@@ -107,16 +107,16 @@ p {
 /* Custom Scrollbar */
 @media (min-width: 700px) {
     ::-webkit-scrollbar {
-        width: 10px;
+        width: 0;
     }
     ::-webkit-scrollbar-track {
         background: #46c7ff;
     }
     ::-webkit-scrollbar-thumb {
-        background: #ffffff;
+        background: #dcdcdc;
     }
     ::-webkit-scrollbar-thumb:hover {
-        background: #e0e0e0;
+        background: #c9c9c9;
     }
 }
 

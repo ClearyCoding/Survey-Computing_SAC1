@@ -172,12 +172,70 @@ function displayResults(question=null) {
 function displayConclusion() {
     conclusionClasses(true)
     mainElement.innerHTML = `
-    <h2>Conclusion</h2>
-    <p>Conclusion coming soon!</p>
+    <section class="void void-title">
+        <h2>Attitudes to Covid-19</h2>
+        <h3>David Sprung, Nathan Scott & Alexander Cleary</h3>
+    </section>
+    <section class="section section-infections section-first">
+        <h2>Infections</h2>
+    </section>
+    <section class="void void-vaccination">
+        <h2>Vaccination</h2>
+    </section>
+    <section class="section section-impacts">
+        <h2>Impacts</h2>
+    </section>
+    <section class="section section-attitudes">
+        <h2>Attitudes</h2>
+    </section>
+    <section class="void void-buttons">
+        <button id="discussion">Discussion</button>
+        <button id="reflections">Reflections</button>
+    </section>
+    <section class="section section-references">
+        <h3>References</h3>
+    </section>
     `
     console.log(answerData)
     clearInterval(countTick);
     countElement.innerHTML = `Your Answers`;
+
+    document.querySelector('#discussion').addEventListener('click', () => {
+        conclusionClasses(false)
+        mainElement.innerHTML = `
+        <h2>Discussion</h2>
+        <p>Lorem Ipsum</p>
+        <button id="conclusion-button">Back</button>
+        `
+        document.querySelector('#conclusion-button').addEventListener('click', () => {
+            displayConclusion()
+            document.querySelector('.parallax').scrollTop = 0;
+        })
+    })
+    document.querySelector('#reflections').addEventListener('click', () => {
+        mainElement.innerHTML = `
+        <section class="void void-title">
+            <h2>Personal Reflections</h2>
+        </section>
+        <section class="section section-first">
+            <h2>Alexander Cleary</h2>
+        </section>
+        <section class="section">
+            <h2>Nathan Scott</h2>
+        </section>
+        <section class="section">
+            <h2>David Sprung</h2>
+        </section>
+        <section class="void void-buttons">
+             <button id="conclusion-button">Back</button>
+        </section>
+        `
+        document.querySelector('.parallax').scrollTop = 0;
+        document.querySelector('#conclusion-button').addEventListener('click', () => {
+            displayConclusion()
+            document.querySelector('.parallax').scrollTop = 0;
+        })
+    })
 }
 function displayAnswers(question=null) {
     conclusionClasses(false)
@@ -254,6 +312,7 @@ function displayAnswers(question=null) {
     document.querySelector('#back').addEventListener('click', function() {
         if (isComplete()) {
             displayConclusion()
+            document.querySelector('.parallax').scrollTop = 0;
         } else {
             if (isComplete(0, "i") === 0)
                 displayStart()
@@ -363,7 +422,7 @@ try {
             <p>Please Try Again Later.</p>
         `
     errorCheckServer = false
-    throw new Error('Could not fetch data from backend, process aborted.');
+    displayConclusion() //throw new Error('Could not fetch data from backend, process aborted.');
 }
 
 // Assign UUID to users without one
