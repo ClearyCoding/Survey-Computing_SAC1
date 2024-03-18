@@ -41,7 +41,7 @@
     min-height: 450px;
     padding: 30px;
     box-sizing: border-box;
-    background-color: #3e41ff;
+    background-color: rgba(62, 65, 255, 0.3);
 }
 .section-transparent {
     background: none;
