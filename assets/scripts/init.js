@@ -261,17 +261,6 @@ function displayConclusion() {
             <h2>Personal Reflections</h2>
         </section>
         <section class="section section-reflection section-first">
-            <h2>Alexander Cleary</h2>
-            <p>This assignment taught me a lot of valuable skills utilising JavaScript, CSS and Linux. I have learned how to use “Chart.js” a framework to create live charts. I have also learned how to create a single-page website utilising JavaScript document replacement to allow me to reduce loading times significantly. I have learned how to communicate with a backend and use asynchronous functions. This website also helped me develop my skills in live content creation using JavaScript. This site has taught me a lot and has given me many opportunities to expand my capabilities in web development.
-
-            Throughout the project, we had many issues connecting the front-end to a database, including connecting to the server, writing asynchronous functionality, and processing promises. We implemented various strategies to combat the issues by researching similar problems online and experimenting with various scenarios on separate branches. Eventually, we discovered a method that allowed us to set up the functions for the server to communicate with the client. This solution involved utilising the primary sequence of the script and modular JavaScript functionality to allow the client to wait for the data to process before proceeding. To account for edge cases, I implemented checks to ensure the communication was functioning before continuing with the script.
-            
-            In future projects, I would like to improve my time management. We found ourselves spreading the project unevenly over time, with quick progression over some weeks and little to no progress on others. This uneven progress caused confusion and a loss of cohesiveness within the group and slowed the integration of our roles. A solution to this would be to schedule goals and milestones to complete specific tasks, allowing us to navigate our time management more effectively.
-            
-            We worked all right as a team. Our team split work into our specialties, such as my experience with HTML/CSS, front-end JavaScript, and UI design, which landed me a role in building the front-end site. This arrangement allowed us to create a project that significantly benefited from each of our strengths. One major struggle for our group was working around some of our team member’s skill levels, which proved a challenge for part of our group to fully understand and incorporate into the more technical side of the project. We attempted many strategies to incorporate this as best we could by explaining the programming we were implementing and trying to gain input at many stages to share in the work. In future scenarios, this is an area we need to improve heavily on, as we found it hard to spread tasks over the experience gradient, and we are open to input ideas on how to do this.
-            </p>
-        </section>
-        <section class="section section-reflection section-transparent">
             <h2>Nathan Scott</h2>
             <p>
             This was a lot of work, I spent tens of hours debugging and just (figuratively) banging my head against my desk. It ended up teaching me a whole new coding language, javascript. I’d had some (very limited) experience with it in the past, but until I started this project, I didn't know anything about using it for big projects. It was also my introduction to building my own objects, attributes and methods. Of course, I’d used them before and had a basic understanding of how they worked, just not made my own. 
@@ -283,7 +272,7 @@ function displayConclusion() {
             The group-work was reasonably evenly split between Alex and me. David didn't do quite as much but we both write code in our own specific ways that makes sense to only two things; the compiler and ourselves. It would’ve made the project more painful to have someone else working on our scripts. His job was to check the boxes on the rubric to make sure we got the marks, but he did suggest ideas for fixing bugs and was there for basically all the development process.
             </p>
         </section>
-        <section class="section section-reflection">
+        <section class="section section-reflection section-transparent">
             <h2>David Sprung</h2>
             <p>
             I learnt a lot about html and css since working with two dedicated programmers forces me to learn quickly. I learnt about security and servers and also cookies. I also learnt a lot about how my group members work and how to work effectively with them.
@@ -299,6 +288,18 @@ function displayConclusion() {
             We didn’t have any arguments or disagreements. Sometimes we left some of the work to the last day but we worked efficiently and got it done easily.
             
             I think if we spent less time on coding the website and more time focusing on what the assignment wanted us to do we would have had an easier time completing this assignment but I think overall us having done it this way has helped us all learn a lot about html/css. Doing it again I would start with the required assignment stuff and then after that is done work on extending ourselves.
+            </p>
+        </section>
+        <section class="section section-reflection">
+            <h2>Alexander Cleary</h2>
+            <p>
+            This assignment taught me a lot of valuable skills utilising JavaScript, CSS and Linux. I have learned how to use “Chart.js” a framework to create live charts. I have also learned how to create a single-page website utilising JavaScript document replacement to allow me to reduce loading times significantly. I have learned how to communicate with a backend and use asynchronous functions. This website also helped me develop my skills in live content creation using JavaScript. This site has taught me a lot and has given me many opportunities to expand my capabilities in web development.
+
+            Throughout the project, we had many issues connecting the front-end to a database, including connecting to the server, writing asynchronous functionality, and processing promises. We implemented various strategies to combat the issues by researching similar problems online and experimenting with various scenarios on separate branches. Eventually, we discovered a method that allowed us to set up the functions for the server to communicate with the client. This solution involved utilising the primary sequence of the script and modular JavaScript functionality to allow the client to wait for the data to process before proceeding. To account for edge cases, I implemented checks to ensure the communication was functioning before continuing with the script.
+            
+            In future projects, I would like to improve my time management. We found ourselves spreading the project unevenly over time, with quick progression over some weeks and little to no progress on others. This uneven progress caused confusion and a loss of cohesiveness within the group and slowed the integration of our roles. A solution to this would be to schedule goals and milestones to complete specific tasks, allowing us to navigate our time management more effectively.
+            
+            We worked all right as a team. Our team split work into our specialties, such as my experience with HTML/CSS, front-end JavaScript, and UI design, which landed me a role in building the front-end site. This arrangement allowed us to create a project that significantly benefited from each of our strengths. One major struggle for our group was working around some of our team member’s skill levels, which proved a challenge for part of our group to fully understand and incorporate into the more technical side of the project. We attempted many strategies to incorporate this as best we could by explaining the programming we were implementing and trying to gain input at many stages to share in the work. In future scenarios, this is an area we need to improve heavily on, as we found it hard to spread tasks over the experience gradient, and we are open to input ideas on how to do this.
             </p>
         </section>
         <section class="void void-buttons">
