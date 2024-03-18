@@ -410,7 +410,7 @@ function displayStart() {
     } else {
         mainElement.innerHTML = `
         <h1>${documentTitle}</h1>
-        <p class="intro">This survey aims to study the impacts of COVID-19 on members of the East-Melbourne community. The results from this study will provide insight on how governments can better react to future pandemics, without negativley impacting the livelihoods of it's citizens.</p>
+        <p class="intro">This survey aims to study the impacts of COVID-19 on members of the East-Melbourne community. The results from this study will provide insight on how governments can better react to future pandemics, without negativley impacting the livelihoods of its citizens.</p>
         <p>By clicking "Start Survey!", you agree to share your answers for this survey <strong>anonymously</strong> for use in this study. Particpant data cannot be traced back to any individual user, and will be deleted after the study concludes.</p>
         <div id="start-buttons">
             <button id="start">${isComplete(0, "i") === 0 ? 'Start Survey!' : 'Continue Survey'}</button>
