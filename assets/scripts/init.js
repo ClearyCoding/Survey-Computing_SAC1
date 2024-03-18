@@ -131,17 +131,11 @@ function displayResults(question=null) {
             datasets: [{
                 backgroundColor: [
                     "#3e41ff",
-                    "#f6c32b",
                     "#33a9f1",
-                    "#d37c18",
                     "#035bbb",
-                    "#f1a437",
                     "#6fc1f1",
-                    "#D3A518",
                     "#5970ff",
-                    "#d38818",
                     "#6caee5",
-                    "#ff970e",
                     "#7676ff",
                 ],
                 data: answerData[currentQuestion].slice(0, questionList[currentQuestion].answers.length - 1),
@@ -248,7 +242,12 @@ function displayConclusion() {
         conclusionClasses(false)
         mainElement.innerHTML = `
         <h2>Discussion</h2>
-        <p>Lorem Ipsum</p>
+        <p>
+            <strong>TODO:</strong>
+            What did the research reveal?
+            Did the results meet your group’s expectations?
+            Anything interesting or unusual?
+        </p>
         <button id="conclusion-button">Back</button>
         `
         document.querySelector('#conclusion-button').addEventListener('click', () => {
@@ -411,6 +410,7 @@ function displayStart() {
     } else {
         mainElement.innerHTML = `
         <h1>${documentTitle}</h1>
+        <p class="intro">This survey aims to study the impacts of COVID-19 on members of the East-Melbourne community. The results from this study will provide insight on how governments can better react to future pandemics, without negativley impacting the livelihoods of it's citizens.</p>
         <p>By clicking "Start Survey!", you agree to share your answers for this survey <strong>anonymously</strong> for use in this study. Particpant data cannot be traced back to any individual user, and will be deleted after the study concludes.</p>
         <div id="start-buttons">
             <button id="start">${isComplete(0, "i") === 0 ? 'Start Survey!' : 'Continue Survey'}</button>
