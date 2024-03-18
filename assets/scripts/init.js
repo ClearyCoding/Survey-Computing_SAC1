@@ -183,7 +183,7 @@ function displayConclusion() {
     mainElement.innerHTML = `
     <section class="void void-title">
         <h1>${documentTitle}</h1>
-        <p>Since 2019, COVID-19 has</p>
+        <p>This investigation was conducted on attitudes toward COVID-19, This topic was chosen as protective practices are slowly slipping out of public habit, resulting in an easier spread of COVID-19. Public sentiment leans towards the opinion that COVID-19 is behind us, but the unfortunate reality is that there are many lives still being claimed by SARS-CoV-2 as seen in the weekly/fortnightly surveillance reports from the Victorian government. In this project, we have conducted a survey and an analysis of the survey results to see whether this is truly the case and to gain insight into people's attitudes towards the COVID-19 pandemic. This survey aims to ensure year 10-12 students are informed on the public conceptions towards this topic.</p>
     </section>
     <section class="section section-infections section-first">
         <h2>Infections</h2>
