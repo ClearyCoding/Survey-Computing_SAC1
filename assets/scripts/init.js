@@ -185,30 +185,32 @@ function displayConclusion() {
         <h1>${documentTitle}</h1>
         <p>This investigation was conducted on attitudes toward COVID-19, This topic was chosen as protective practices are slowly slipping out of public habit, resulting in an easier spread of COVID-19. Public sentiment leans towards the opinion that COVID-19 is behind us, but the unfortunate reality is that there are many lives still being claimed by SARS-CoV-2 as seen in the weekly/fortnightly surveillance reports from the Victorian government. In this project, we have conducted a survey and an analysis of the survey results to see whether this is truly the case and to gain insight into people's attitudes towards the COVID-19 pandemic. This survey aims to ensure year 10-12 students are informed on the public conceptions towards this topic.</p>
     </section>
-    <section class="section section-infections section-first">
-        <h2>Infections</h2>
-        <div class="graphic">
-            <h3>In a room with 10 people:</h3>
-            <div id="human-grid"></div>
-            <div>
-                <p>${Math.round(10 / (totals[4]) * answerData[4][0])} ${Math.round(10 / (totals[4]) * answerData[4][0]) === 1 ? 'person has' : 'people have'} never had COVID</p>
-                <p>${Math.round(10 / (totals[4]) * answerData[4][1])} ${Math.round(10 / (totals[4]) * answerData[4][1]) === 1 ? 'person has' : 'people have'} had COVID once</p>
-                <p>${Math.round(10 / (totals[4]) * answerData[4][2])} ${Math.round(10 / (totals[4]) * answerData[4][2]) === 1 ? 'person has' : 'people have'} had COVID twice</p>
-                <p>${(Math.round((10 / (totals[4]) * answerData[4][3]))) + (Math.round(10 / (totals[4]) * answerData[4][4]))} ${(Math.round((10 / (totals[4]) * answerData[4][3]))) + (Math.round(10 / (totals[4]) * answerData[4][4])) === 1 ? 'person has' : 'people have'} had COVID 3+ times</p>
-            </div>
-        </div>
+    <section class="section section-infections section-first graphic-container">
+        <img alt="Infection Statistics" src="/assets/images/graphics/cases.png" class="graphic">
+        <img alt="Vaccination Statistics" src="/assets/images/graphics/vaccination.png" class="graphic">
     </section>
-    <section class="section section-vaccination section-transparent">
-        <h2>Vaccination</h2>
+    <section class="section section-healthcare section-transparent graphic-container">
+        <img alt="Healthcare Statistics" src="/assets/images/graphics/healthcare.png" class="graphic">
     </section>
-    <section class="section section-impacts">
-        <h2>Impacts</h2>
+    <section class="section section-attitudes graphic-container">
+        <img alt="Mask Usage Statistics" src="/assets/images/graphics/masks.png" class="graphic">
+        <img alt="Attitude Statistics" src="/assets/images/graphics/restrictions.png" class="graphic">
     </section>
-    <section class="section section-attitudes">
-        <h2>Attitudes</h2>
+    <section class="section section-affects section-transparent graphic-container">
+        <img alt="Mental Health Statistics" src="/assets/images/graphics/mental.png" class="graphic">
+    </section>
+    <section class="section section-discussion">
+        <h2>Discussion</h2>
+        <p>
+            The survey revealed that COVID-19 affected many people’s lives and despite having moved on from it, all people surveyed are vaccinated. Even though there are some COVID-safe practices, 40% of people still don’t wear masks at all. A study conducted in mid 2020 revealed that over 90% of people are willing to wear masks in all public areas, which is very different to the 15% of people saying the same in our survey. This is almost certainly due to the fact that people don’t hear about it anymore so they’re now as worried as they were. A large portion of people in the survey said that they think the restrictions were appropriate, implying a level of compliance. 29% of people thought the restrictions put in place during the worst years should have been more strict. When compared to the 35% of people who said that the restrictions were too strict, the gap isn’t big enough that inaccuracies due to our relatively small sample size cannot be ruled out.
+
+            Due to observation of real-world scenarios and behaviours, particularly in the public’s attitudes to mask-wearing the results were mostly anticipated. From our participants, all of the participants have been vaccinated with at least two doses, which surprised us. We had expected a small amount to have undergone no vaccination, due to the presence of “anti-vaxxing” campaigns throughout the pandemic. This can be attributed to bias in the dataset, due to the large majority of our data coming from John Monash students, who are more likely to hold scientific beliefs that support vaccination.
+
+            This data pretty much conforms to our expectations, with only a few exceptions. We were expecting a small subset of the responses to say they’d had no vaccinations, whether it was because of the anti-vaxxer culture or simply because some respondents were immunocompromised. We have The former likely didn’t show up due to the types of people we make acquaintances of and the latter because it is such a small minority of a minority that it was unlikely to ever have one appear in such a small sample.
+        </p>
     </section>
     <section class="void void-buttons">
-        <button id="reflections">Reflections</button>
+        <button id="reflections">Personal Reflections</button>
     </section>
     <section class="section section-references section-transparent">
         <h3>References:</h3>

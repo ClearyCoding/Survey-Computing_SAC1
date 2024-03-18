@@ -38,13 +38,16 @@
 }
 .section {
     position: relative;
-    min-height: 450px;
+    min-height: 350px;
     padding: 30px;
     box-sizing: border-box;
     background-color: rgba(62, 65, 255, 0.3);
 }
 .section-transparent {
     background: none;
+}
+.section h2 {
+    margin-bottom: 10px;
 }
 @media (max-width: 400px) {
     .section {
@@ -66,6 +69,26 @@
     top: -70px;
 }
 .graphic {
+    height: 100%;
+    max-height: 400px;
+}
+.graphic-container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+}
+@media (max-width: 900px) {
+    .graphic {
+        max-height: 300px;
+        margin-bottom: 10px;
+    }
+    .graphic-container {
+        flex-direction: column;
+    }
+}
+/*
+.graphic {
     width: 50%;
     display: flex;
     flex-direction: column;
@@ -74,6 +97,7 @@
 .graphic p {
     max-width: 100%;
 }
+*/
 
 /* Section Sizes */
 .void-title {
@@ -105,12 +129,33 @@
     font-size: 1rem;
 }
 
+/* Graphics */
+.section-healthcare .graphic {
+    max-height: unset;
+    height: unset;
+    width: 90%;
+}
+
+/* Discussion */
+.section-discussion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.section-discussion p{
+    text-align: justify;
+    white-space: pre-wrap;
+}
+
 /* Buttons */
 .void-buttons {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: row;
+}
+#reflections {
+    width: 300px;
 }
 
 /* References */
@@ -139,6 +184,6 @@
     flex-direction: column;
 }
 .section-reflection p{
-    text-align: start;
+    text-align: justify;
     white-space: pre-wrap;
 }
