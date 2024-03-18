@@ -208,7 +208,6 @@ function displayConclusion() {
         <h2>Attitudes</h2>
     </section>
     <section class="void void-buttons">
-        <button id="discussion">Discussion</button>
         <button id="reflections">Reflections</button>
     </section>
     <section class="section section-references section-transparent">
@@ -238,23 +237,6 @@ function displayConclusion() {
             `
     }*/
 
-    document.querySelector('#discussion').addEventListener('click', () => {
-        conclusionClasses(false)
-        mainElement.innerHTML = `
-        <h2>Discussion</h2>
-        <p>
-            <strong>TODO:</strong>
-            What did the research reveal?
-            Did the results meet your group’s expectations?
-            Anything interesting or unusual?
-        </p>
-        <button id="conclusion-button">Back</button>
-        `
-        document.querySelector('#conclusion-button').addEventListener('click', () => {
-            displayConclusion()
-            document.querySelector('.parallax').scrollTop = 0;
-        })
-    })
     document.querySelector('#reflections').addEventListener('click', () => {
         mainElement.innerHTML = `
         <section class="void void-title">
