@@ -170,14 +170,14 @@ function displayResults(question=null) {
     });
 }
 function displayConclusion() {
-    let totals = []
+    /*let totals = []
     for (let i = 0; i < questionList.length; i++) {
         let rowTotal = 0
         for (let j = 0; j < questionList[i].answers.length - 1; j++) {
             rowTotal += answerData[i][j]
         }
         totals.push(rowTotal)
-    }
+    }*/
 
     conclusionClasses(true)
     mainElement.innerHTML = `
