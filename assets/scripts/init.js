@@ -478,7 +478,7 @@ try {
     mainElement.innerHTML = `
             <h1>The Server Is Offline :(</h1>
             <h3>Please Try Again Later.</h3>
-            <p style="font-size: 1rem; margin-top: 1rem;">If you need to access this site urgently, please contact <a href="mailto://sco0006@jmss.vic.edu.au">Nathan Scott</a>.</p>
+            <p style="font-size: 1rem; margin-top: 1rem;">If you need to access this site urgently, please contact <a href="mailto:sco0006@jmss.vic.edu.au">Nathan Scott</a>.</p>
         `
     errorCheckServer = false
     throw new Error('Could not fetch data from backend, process aborted.');
